@@ -1,0 +1,62 @@
+Plataforma de Benchmark para Algoritmos de Otimização Bio-inspirados
+
+Algoritmos para Comparação
+Os Clássicos (Padrão de Indústria):
+Particle Swarm Optimization (PSO): Inspirado no voo de bandos de pássaros, é o algoritmo de inteligência de enxame mais popular para funções contínuas e o principal rival do GWO em estudos comparativos.
+Ant Colony Optimization (ACO): Inspirado no comportamento de formigas através da deposição de feromônios, muito utilizado como base de testes comparativos para problemas de engenharia e roteamento.
+
+Grey Wolf Optimizer (GWO): Arquitetura e Diferenciais Introduzido por Mirjalili (2014), o GWO mimetiza a liderança social e o mecanismo de caça dos lobos cinzentos. Seu grande diferencial sobre o PSO é a rejeição ao atrator único, utilizando um sistema de liderança hierarquizado para triangular a posição da "presa" (o ótimo global).
+Whale Optimization Algorithm (WOA): Publicado em 2016, este é considerado um dos maiores e mais populares rivais diretos do GWO. Inspirado na tática de forrageamento aquático em "rede de bolhas" das baleias jubarte, o WOA diferencia-se do GWO por incorporar uma atualização de posição em espiral logarítmica. Esse mecanismo contorna o problema do elitismo excessivo do GWO, garantindo que o algoritmo não estagne em problemas com vários ótimos locais.
+
+Recente (Focados em IA - 2024 a 2026):
+DRL-BWO (Deep Reinforcement Learning Beluga Whale Optimization): Representando a nova geração de metaheurísticas marinhas (2024-2026), este algoritmo funde o comportamento de natação e forrageamento das baleias beluga com um agente de IA. O Aprendizado por Reforço Profundo atua como um controlador dinâmico: a IA aprende com a topologia do problema matemático em tempo real e decide quando as belugas devem explorar novas áreas ou focar em uma presa específica. Esse mecanismo adaptativo supera as limitações de algoritmos clássicos, evitando a estagnação prematura. 
+BWO (Otimização da Baleia Beluga): Introduzido em 2022, o BWO simula os comportamentos sociais das baleias beluga: natação (exploração), busca por alimento (exploração) e queda da baleia (um mecanismo para evitar ótimos locais).
+Componente de Aprendizado Profundo/DRL: Em vez de uma simples busca aleatória, um modelo de aprendizado profundo (por exemplo, MA-BiLSTM ) ou um agente DRL (por exemplo, DDPG ) atua como o "cérebro", otimizando os hiperparâmetros (taxa de aprendizado, neurônios, tamanho do lote) do sistema em estudo.
+QL-GWO (Q-Learning Grey Wolf Optimizer): Um modelo inteligente que embute um agente de Aprendizado por Reforço clássico (Tabular Q-Learning). Removendo a complexidade e o alto custo computacional das redes neurais profundas, a IA utiliza uma Matriz Q para "recompensar" ou "punir" o algoritmo baseando-se no sucesso de diferentes estratégias de busca. Durante a execução, o agente aprende qual operador matemático (caminhada aleatória, cerco ou ataque direto) funciona melhor para o problema específico, adaptando o comportamento dos lobos em tempo real com base na experiência adquirida. 
+Aprendizado adaptativo: O Q-learning ajusta os parâmetros do algoritmo ou seleciona estratégias de busca durante as iterações, permitindo que o algoritmo se adapte ao cenário do problema em vez de usar parâmetros fixos.
+Dinâmica de Busca Aprimorada: O QGWO introduz mecanismos como saltos longos realizados por lobos aleatórios para aumentar a diversidade da população e evitar que fiquem presos em ótimos locais.
+Atualizações Segmentadas: O algoritmo frequentemente utiliza uma estratégia de atualização de posição segmentada e parametrizada, aprimorando o mecanismo de caça tradicional do GWO (lobos alfa, beta e delta).
+Otimização de Busca Local: O Q-learning auxilia na escolha da melhor estratégia de busca local para refinar as soluções encontradas durante a fase de busca, frequentemente levando a uma melhor convergência para a solução ótima.
+
+Métricas de Comparação de Algoritmos de Otimização (TCC)
+Complexidade Teórica (Notação Big-O)
+Esta métrica, de natureza assintótica e matemática, avalia a escalabilidade do algoritmo.
+Onde verificar no código: O algoritmo possui a função get_complexity().
+Nos logs: Ao executar o experimento, o terminal exibirá a fórmula de complexidade, como no exemplo: Executando PSO O(50*10*5)..., cruzando (Iterações $\times$ População $\times$ Dimensões).
+Para o TCC: A complexidade clássica para algoritmos como PSO, GWO, ACO, ALO e WOA deve ser descrita como $O(T \times N \times D)$, onde $T$ é o número máximo de iterações, $N$ o tamanho da população e $D$ o número de dimensões.
+Custo Empírico: Tempo de Execução (CPU Time)
+O tempo de execução real, medido em segundos, reflete o custo de processamento interno do algoritmo (e.g., a complexa matemática da espiral das baleias ou da matriz DRL).
+Onde verificar no código: O código utiliza a biblioteca time.perf_counter() para medições de alta precisão.
+Nos gráficos: O notebook gera automaticamente o gráfico de barras laterais denominado "Tempo Médio por Função".
+Nas tabelas: Consulte a coluna "Tempo(s)" na tabela resumo LaTeX impressa no final do log.
+Custo de Avaliações: Eficiência (NFEs)
+As Number of Function Evaluations (NFEs) representam a quantidade de vezes que a função matemática de fitness foi processada. Esta é considerada a métrica mais crucial para problemas práticos, como simulações de engenharia pesadas.
+Onde verificar no código: A classe abstrata ObjectiveFunction mantém um contador interno (self.nfe += 1), monitorando a frequência com que o algoritmo "consulta" o valor da função.
+Nos gráficos: O notebook produz o gráfico de barras "NFEs Médio por Função".
+Nas tabelas: A informação está disponível na coluna "NFE" da tabela resumo LaTeX.
+
+Relatório de Métodos e Testes Academicamente Reconhecidos
+A metodologia de avaliação das meta-heurísticas está fundamentada em quatro pilares, visando um rigor científico comparável aos padrões internacionais estabelecidos (como os do IEEE CEC). O objetivo primordial é assegurar uma análise robusta e imparcial do desempenho dos algoritmos.1. Avaliação de Desempenho em Ambientes Sintéticos (Funções de Benchmark)
+
+Previamente à sua aplicação em cenários práticos, os algoritmos são submetidos a um conjunto de funções matemáticas sintéticas. Estas funções são meticulosamente desenhadas para isolar e quantificar comportamentos específicos inerentes à inteligência de enxame:
+Teste de Explotação (Funções Unimodais): Mediante a utilização de funções como a Esfera (Sphere), que detêm um único ponto de ótimo global, este teste mede estritamente a velocidade de convergência (busca local). O foco reside em determinar qual algoritmo alcança a precisão máxima no menor número de iterações.
+Teste de Exploração e Evasão (Funções Multimodais): Empregando superfícies de busca complexas (a exemplo de Ackley, Rastrigin e Schwefel), caracterizadas pela presença de múltiplos picos e ótimos locais, este teste avalia a inteligência global. O critério de avaliação é a capacidade do algoritmo de sustentar a diversidade da população, prevenindo a estagnação em armadilhas locais e explorando o espaço de busca até a identificação do ótimo global verdadeiro.
+Aplicações em Domínios do Mundo Real (Aprendizado de Máquina)
+
+Com o intuito de demonstrar a utilidade prática intrínseca aos algoritmos bio-inspirados, estes são aplicados a problemas contemporâneos em Ciência de Dados que exibem espaços de busca não-lineares ou discretos:
+Seleção de Características (Feature Selection): Os algoritmos buscam identificar o subconjunto mínimo de atributos de um dataset capaz de maximizar a acurácia de um classificador de Inteligência Artificial (e.g., SVM, KNN), estabelecendo um equilíbrio entre precisão e parcimônia computacional.
+Otimização de Hiperparâmetros: Nesta aplicação, os algoritmos substituem metodologias clássicas (como o Grid Search) para sintonizar os parâmetros (a exemplo de taxas de aprendizado e pesos) de Redes Neurais e Random Forests, com o propósito de maximizar a capacidade preditiva do modelo.
+Mensuração do Custo Computacional e Complexidade
+
+A eficiência prática constitui um fator crítico. Por conseguinte, o esforço computacional demandado pelos algoritmos é avaliado em três dimensões distintas:
+Complexidade Assintótica (Notação Big-O): Consiste na análise teórica da estrutura do algoritmo, formalizada na notação $O(T \times N \times D)$, a qual relaciona o número de Iterações ($T$), o tamanho da População ($N$) e o número de Dimensões ($D$).
+Custo Empírico (CPU Time): Medição do tempo real de processamento em milissegundos, com o intuito de identificar algoritmos cuja arquitetura é inerentemente mais onerosa em termos de processamento.
+Eficiência de Avaliações (NFEs - Number of Function Evaluations): Quantificação do número de vezes que o algoritmo necessitou recalcular a função objetivo. Esta métrica representa o indicador definitivo de eficiência para problemas que envolvem um elevado custo de simulação do modelo.
+Rigor Estatístico (Validação Não-Paramétrica)
+
+Devido à natureza estocástica (dependente de geradores pseudoaleatórios) dos algoritmos bio-inspirados, a validade científica das conclusões exige uma robustez estatística inquestionável. A metodologia estabelece, no mínimo, 30 execuções independentes (runs) por função e emprega testes não-paramétricos para a comparação de medianas:
+Testes Globais (Friedman e Kruskal-Wallis): Realizam a análise do ranking de todos os algoritmos simultaneamente para confirmar, por meio de bases matemáticas, a existência de uma diferença significativa de desempenho entre o grupo.
+Comparações Par-a-Par (Mann-Whitney U): Isolam a comparação entre dois algoritmos específicos (ex: GWO versus PSO) com o intuito de determinar um vencedor direto, utilizando um valor-p ($p\text{-value}$) inferior a $0.05$.
+Magnitude de Efeito (Cliff's Delta): Calcula o tamanho do efeito (Effect Size) da superioridade observada. Esta métrica é fundamental para determinar se a vitória obtida foi classificada como "Grande", "Média" ou "Negligenciável", comprovando que o resultado não é marginal.
+
+
