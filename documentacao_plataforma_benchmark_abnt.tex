@@ -1,0 +1,276 @@
+% Capitulo avulso para inserir no TCC.
+% Sugestao de uso no arquivo principal:
+% \input{documentacao_plataforma_benchmark_abnt}
+%
+% Pacotes recomendados no preambulo do TCC:
+% \usepackage{amsmath, amssymb}
+% \usepackage{booktabs}
+% \usepackage{longtable}
+% \usepackage{tikz}
+% \usetikzlibrary{arrows.meta, positioning, shapes.geometric}
+
+A proposta da plataforma é oferecer um ambiente padronizado para execução, comparação, análise estatística e visualização de resultados obtidos por diferentes meta-heurísticas em problemas matemáticos e problemas reais de aprendizado de máquina.
+
+A plataforma foi implementada em Python e organizada em um notebook Jupyter, permitindo execução interativa, alteração rápida de parâmetros experimentais e geração automática de gráficos e arquivos de saída. Sua estrutura foi construída com foco em modularidade: os algoritmos de otimização são independentes das funções objetivo, o que permite executar diferentes métodos sobre os mesmos problemas sem modificar a lógica central do experimento.
+
+\subsection{Objetivo da Plataforma}
+
+O objetivo principal da plataforma é comparar algoritmos de otimização bioinspirados sob condições experimentais equivalentes. Para isso, todos os algoritmos são avaliados com o mesmo número de execuções independentes, mesma população, mesmo limite de iterações e mesmas funções objetivo.
+
+Além da comparação do melhor valor encontrado, a plataforma registra métricas complementares, como tempo de execução, número de avaliações da função objetivo, acurácia em problemas de aprendizado de máquina e comportamento de convergência ao longo das iterações. Dessa forma, a análise não se limita ao resultado final, mas considera também estabilidade, custo computacional e robustez.
+
+\subsection{Arquitetura Geral}
+
+A plataforma é composta por quatro blocos principais:
+
+\begin{itemize}
+    \item funções objetivo, responsáveis por representar os problemas a serem minimizados;
+    \item algoritmos de otimização, responsáveis por explorar o espaço de busca;
+    \item suíte experimental, responsável por executar as rodadas, coletar métricas e organizar resultados;
+    \item módulo de análise, responsável por gerar gráficos, testes estatísticos e arquivos exportáveis.
+\end{itemize}
+
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}[
+    bloco/.style={rectangle, rounded corners=2pt, draw=black, fill=gray!10, minimum width=2.8cm, minimum height=0.85cm, align=center, font=\footnotesize},
+    destaque/.style={rectangle, rounded corners=2pt, draw=black, fill=gray!25, minimum width=3.0cm, minimum height=0.85cm, align=center, font=\footnotesize\bfseries},
+    seta/.style={-{Latex[length=2.5mm]}, thick}
+]
+    \node[destaque] (config) at (0,0) {Configuração\\experimental};
+    \node[bloco] (obj) at (-3.3,-1.4) {Funções\\objetivo};
+    \node[bloco] (alg) at (3.3,-1.4) {Algoritmos de\\otimização};
+    \node[destaque] (suite) at (0,-2.8) {Suíte de\\benchmark};
+    \node[bloco] (estat) at (-4.0,-4.2) {Testes\\estatísticos};
+    \node[bloco] (plots) at (0,-4.2) {Gráficos e\\visualizações};
+    \node[bloco] (export) at (4.0,-4.2) {Exportação\\CSV, JSON\\e LaTeX};
+
+    \draw[seta] (config) -- (obj);
+    \draw[seta] (config) -- (alg);
+    \draw[seta] (obj) -- (suite);
+    \draw[seta] (alg) -- (suite);
+    \draw[seta] (suite) -- (estat);
+    \draw[seta] (suite) -- (plots);
+    \draw[seta] (suite) -- (export);
+\end{tikzpicture}
+\caption{Arquitetura geral da plataforma de benchmark.}
+\label{fig:arquitetura-plataforma}
+\end{figure}
+
+A Figura~\ref{fig:arquitetura-plataforma} ilustra o funcionamento geral da plataforma. A configuração experimental define quais problemas e algoritmos serão executados. Em seguida, a suíte de benchmark combina os algoritmos com as funções objetivo, realiza as execuções independentes e encaminha os resultados para análise estatística, visualização e exportação.
+
+\subsection{Funções Objetivo}
+
+Todas as funções objetivo seguem uma interface comum. Cada problema possui dimensão, limites inferiores e superiores do espaço de busca, nome identificador e contador de avaliações. Esse contador registra o número de vezes que a função objetivo foi chamada, métrica conhecida como NFE (\textit{Number of Function Evaluations}).
+
+Formalmente, cada problema é tratado como um problema de minimização:
+
+\begin{equation}
+    \min_{\mathbf{x} \in \Omega} f(\mathbf{x}),
+\end{equation}
+
+em que $\mathbf{x}$ representa uma solução candidata, $\Omega$ representa o domínio de busca e $f(\mathbf{x})$ representa a função de custo.
+
+\subsection{Funções Matemáticas}
+
+A plataforma possui funções matemáticas clássicas de benchmark, utilizadas para analisar o comportamento dos algoritmos em cenários controlados. Essas funções permitem observar capacidade de exploração global, explotação local, fuga de ótimos locais e comportamento em espaços multimodais.
+
+\begin{longtable}{p{3.0cm} p{4.0cm} p{6.0cm}}
+\caption{Funções matemáticas implementadas na plataforma.}
+\label{tab:funcoes-matematicas}\\
+\toprule
+\textbf{Função} & \textbf{Característica} & \textbf{Finalidade experimental}\\
+\midrule
+\endfirsthead
+\toprule
+\textbf{Função} & \textbf{Característica} & \textbf{Finalidade experimental}\\
+\midrule
+\endhead
+Sphere & Unimodal & Avaliar convergência direta e capacidade de explotação.\\
+Ackley & Multimodal & Avaliar fuga de ótimos locais e busca global.\\
+Rastrigin & Multimodal regular & Testar robustez em muitos mínimos locais.\\
+Rosenbrock & Vale estreito & Avaliar busca em regiões mal condicionadas.\\
+Schwefel & Multimodal complexa & Verificar comportamento em paisagem de busca irregular.\\
+Griewank & Multimodal com interação & Testar dependência entre variáveis.\\
+\bottomrule
+\end{longtable}
+
+\subsection{Seleção de Características}
+
+No problema de seleção de características, cada solução candidata é interpretada como um vetor binário que indica quais atributos do conjunto de dados serão utilizados pelo classificador. A conversão do vetor contínuo para binário é feita por limiar:
+
+\begin{equation}
+    s_i =
+    \begin{cases}
+        1, & \text{se } x_i > 0{,}5,\\
+        0, & \text{caso contrário.}
+    \end{cases}
+\end{equation}
+
+A avaliação combina o erro de classificação com a proporção de características selecionadas:
+
+\begin{equation}
+    F_{FS} = \alpha(1 - Acc) + (1-\alpha)\frac{|S|}{D},
+\end{equation}
+
+em que $Acc$ é a acurácia média obtida por validação cruzada, $|S|$ é o número de atributos selecionados, $D$ é o número total de atributos e $\alpha$ controla o peso atribuído à acurácia.
+
+\subsection{Otimização de Hiperparâmetros}
+
+Na otimização de hiperparâmetros, os algoritmos trabalham no domínio contínuo normalizado $[0,1]^D$. A função objetivo decodifica cada vetor candidato para os hiperparâmetros reais do modelo de aprendizado de máquina.
+
+Para o modelo KNN, por exemplo, são otimizados o número de vizinhos, o tipo de ponderação e o parâmetro de distância. Para SVM, são otimizados os parâmetros $C$ e $\gamma$. Para Random Forest, podem ser otimizados o número de árvores, profundidade máxima e número mínimo de amostras para divisão.
+
+A função de custo do problema de otimização de hiperparâmetros é:
+
+\begin{equation}
+    F_{HPO} = 1 - Acc_{CV},
+\end{equation}
+
+em que $Acc_{CV}$ é a acurácia média obtida por validação cruzada.
+
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}[
+    bloco/.style={rectangle, rounded corners=2pt, draw=black, fill=gray!10, minimum width=3.0cm, minimum height=0.8cm, align=center, font=\footnotesize},
+    seta/.style={-{Latex[length=2.4mm]}, thick}
+]
+    \node[bloco] (vetor) at (-3.4,0) {Vetor contínuo\\$\mathbf{x}\in[0,1]^D$};
+    \node[bloco] (decode) at (0,0) {Decodificação dos\\hiperparâmetros};
+    \node[bloco] (modelo) at (3.4,0) {Modelo de\\aprendizado};
+    \node[bloco] (cv) at (3.4,-1.5) {Validação cruzada\\estratificada};
+    \node[bloco] (acc) at (0,-1.5) {Acurácia média\\$Acc_{CV}$};
+    \node[bloco] (fit) at (-3.4,-1.5) {Custo\\$1-Acc_{CV}$};
+
+    \draw[seta] (vetor) -- (decode);
+    \draw[seta] (decode) -- (modelo);
+    \draw[seta] (modelo) -- (cv);
+    \draw[seta] (cv) -- (acc);
+    \draw[seta] (acc) -- (fit);
+\end{tikzpicture}
+\caption{Fluxo de avaliação da função objetivo de otimização de hiperparâmetros.}
+\label{fig:fluxo-hpo}
+\end{figure}
+
+Para reduzir custo computacional, a implementação utiliza cache por hiperparâmetros decodificados e folds de validação cruzada pré-computados. Essa estratégia evita reavaliar combinações equivalentes, especialmente em modelos com hiperparâmetros discretos, como o KNN.
+
+\subsection{Algoritmos de Otimização}
+
+Os algoritmos implementados seguem uma interface comum. Cada algoritmo recebe tamanho da população, número máximo de iterações e retorna a melhor solução encontrada, o melhor custo e a curva de convergência.
+
+\begin{longtable}{p{2.2cm} p{5.0cm} p{6.0cm}}
+\caption{Algoritmos contemplados pela plataforma.}
+\label{tab:algoritmos-plataforma}\\
+\toprule
+\textbf{Sigla} & \textbf{Nome} & \textbf{Descrição}\\
+\midrule
+\endfirsthead
+\toprule
+\textbf{Sigla} & \textbf{Nome} & \textbf{Descrição}\\
+\midrule
+\endhead
+PSO & Particle Swarm Optimization & Algoritmo populacional baseado em partículas com componentes cognitivo e social.\\
+GWO & Grey Wolf Optimizer & Algoritmo inspirado na hierarquia e no mecanismo de caça de lobos-cinzentos.\\
+ACO & Ant Colony Optimization & Método inspirado no comportamento de colônias de formigas e no uso de feromônio.\\
+ALO & Ant Lion Optimizer & Método baseado na interação predatória entre formigas e formigas-leão.\\
+WOA & Whale Optimization Algorithm & Algoritmo inspirado no comportamento de caça por bolhas de baleias.\\
+BWO & Beluga Whale Optimization & Algoritmo baseado em estratégias de exploração e explotação inspiradas em baleias beluga.\\
+DRL-BWO & Deep Reinforcement Learning + BWO & Variante híbrida que combina BWO com política de aprendizado por reforço profundo.\\
+QL-GWO & Q-Learning Grey Wolf Optimizer & Variante híbrida que utiliza Q-learning tabular para adaptar ações do GWO.\\
+\bottomrule
+\end{longtable}
+
+\subsection{Suíte Experimental}
+
+A suíte experimental é responsável por executar os algoritmos sobre cada função objetivo selecionada. Para cada combinação entre algoritmo e problema, são realizadas múltiplas execuções independentes. Em cada execução, a plataforma registra:
+
+\begin{itemize}
+    \item melhor custo final;
+    \item melhor solução encontrada;
+    \item tempo de execução;
+    \item número de avaliações da função objetivo;
+    \item curva de convergência;
+    \item acurácia, quando aplicável.
+\end{itemize}
+
+O uso de execuções independentes é necessário porque meta-heurísticas são algoritmos estocásticos. Assim, o desempenho deve ser analisado com base em distribuições de resultados, e não em uma única execução isolada.
+
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}[
+    etapa/.style={rectangle, rounded corners=2pt, draw=black, fill=gray!10, minimum width=2.8cm, minimum height=0.8cm, align=center, font=\footnotesize},
+    seta/.style={-{Latex[length=2.4mm]}, thick}
+]
+    \node[etapa] (config) at (-3.2,0) {Definir\\configuração};
+    \node[etapa] (problemas) at (0,0) {Selecionar\\problemas};
+    \node[etapa] (algoritmos) at (3.2,0) {Selecionar\\algoritmos};
+    \node[etapa] (exec) at (3.2,-1.5) {Executar\\rodadas};
+    \node[etapa] (metricas) at (0,-1.5) {Coletar\\métricas};
+    \node[etapa] (analise) at (-3.2,-1.5) {Analisar e\\exportar};
+
+    \draw[seta] (config) -- (problemas);
+    \draw[seta] (problemas) -- (algoritmos);
+    \draw[seta] (algoritmos) -- (exec);
+    \draw[seta] (exec) -- (metricas);
+    \draw[seta] (metricas) -- (analise);
+\end{tikzpicture}
+\caption{Fluxo simplificado da suíte experimental.}
+\label{fig:fluxo-suite}
+\end{figure}
+
+\subsection{Métricas de Avaliação}
+
+A comparação entre algoritmos considera diferentes métricas. A principal métrica é o melhor custo final, pois todos os problemas são formulados como minimização. Entretanto, outras métricas são fundamentais para uma avaliação mais completa.
+
+O tempo de execução permite analisar custo computacional em segundos. O número de avaliações da função objetivo permite comparar algoritmos independentemente da máquina utilizada. A curva de convergência permite observar a velocidade com que cada algoritmo aproxima-se de boas soluções. Em problemas de aprendizado de máquina, a acurácia complementa a interpretação do custo.
+
+\subsection{Análise Estatística}
+
+Após as execuções, a plataforma aplica testes estatísticos não paramétricos. Esses testes são adequados porque os resultados de meta-heurísticas nem sempre seguem distribuição normal.
+
+Os principais testes utilizados são:
+
+\begin{itemize}
+    \item teste de Friedman, para comparação global entre múltiplos algoritmos;
+    \item teste de Kruskal--Wallis, como alternativa não paramétrica para comparação global;
+    \item teste de Mann--Whitney U, para comparações par a par;
+    \item Cliff's Delta, para medir tamanho de efeito entre pares de algoritmos.
+\end{itemize}
+
+A análise estatística permite verificar se diferenças observadas nos custos finais são relevantes ou se podem ser atribuídas à variabilidade natural das execuções estocásticas.
+
+\subsection{Visualizações e Exportação}
+
+A plataforma gera visualizações para apoiar a interpretação dos resultados. Entre os gráficos disponíveis estão curvas de convergência, boxplots, violin plots, gráficos de acurácia, barras de tempo e NFE, heatmaps de ranking e gráficos radar.
+
+Além das visualizações, os resultados podem ser exportados em arquivos \texttt{CSV} e \texttt{JSON}. Essa exportação facilita a auditoria dos resultados, a criação de tabelas para o texto acadêmico e a continuidade das análises em outras ferramentas.
+
+\subsection{Controle de Orçamento Computacional}
+
+Um aspecto importante da plataforma é o controle do orçamento experimental. Em funções matemáticas, a avaliação da função objetivo é barata. Em problemas reais, como seleção de características e otimização de hiperparâmetros, cada avaliação pode envolver treinamento de modelos e validação cruzada.
+
+Por esse motivo, a plataforma permite configurar separadamente população, número de iterações e número de execuções independentes para problemas matemáticos e problemas reais.
+
+\begin{table}[htbp]
+\centering
+\caption{Exemplo de parâmetros de orçamento experimental.}
+\label{tab:orcamento-plataforma}
+\begin{tabular}{lccc}
+\toprule
+\textbf{Tipo de problema} & \textbf{População} & \textbf{Iterações} & \textbf{Execuções}\\
+\midrule
+Funções matemáticas & 30 & 500 & 30\\
+Problemas reais & 10 a 30 & 30 a 500 & 30\\
+\bottomrule
+\end{tabular}
+\end{table}
+
+A escolha do orçamento deve equilibrar rigor estatístico e viabilidade computacional. Em especial, problemas de otimização de hiperparâmetros podem se tornar custosos, pois cada avaliação da função objetivo executa validação cruzada.
+
+\subsection{Considerações sobre a Plataforma}
+
+A plataforma desenvolvida permite comparar algoritmos bioinspirados de forma organizada, reprodutível e extensível. Sua estrutura modular facilita a inclusão de novos algoritmos, novas funções objetivo e novos conjuntos de dados.
+
+Como limitação, deve-se observar que problemas com espaço de busca pequeno ou muito discreto podem levar a resultados muito semelhantes entre algoritmos, especialmente quando o orçamento experimental é elevado. Nesses casos, os algoritmos podem saturar rapidamente o espaço de busca, reduzindo a diferença prática entre os métodos. Por isso, a escolha do problema, do modelo e do orçamento experimental deve ser feita de acordo com o objetivo da comparação.
+
+Em síntese, a plataforma funciona como um ambiente de apoio experimental para avaliar não apenas qual algoritmo encontra o menor custo, mas também qual apresenta melhor estabilidade, menor custo computacional e melhor comportamento de convergência.
