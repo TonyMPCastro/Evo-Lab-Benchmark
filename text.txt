@@ -1,0 +1,46 @@
+
+\subsection{Otimização de Hiperparâmetros (\textit{Hyperparameter Optimization} - HPO)}
+
+A otimização de hiperparâmetros visa encontrar a configuração ideal de parâmetros intrínsecos de um modelo de aprendizado de máquina, maximizando seu desempenho preditivo em dados não vistos. O processo busca evitar o sobreajuste (\textit{overfitting}) equilibrando a precisão do modelo com a sua capacidade de generalização. Neste estudo, os modelos são avaliados sobre um conjunto diversificado de bases de dados (incluindo séries temporais biomédicas e de movimento como \textit{ECG200} e \textit{GunPoint}, além de conjuntos clássicos da literatura). Para assegurar uma avaliação justa e robusta, todos os dados são previamente padronizados e divididos em partições fixas de validação cruzada estratificada (\textit{Stratified K-Fold}).
+
+Nesta arquitetura, meta-heurísticas (como PSO, GWO, ACO e ALO) são aplicadas para explorar iterativamente o espaço de busca de diferentes classificadores. Para garantir a compatibilidade com algoritmos de otimização contínua, o espaço de busca é dimensionado no intervalo $\mathbf{x} \in [0,1]^D$, em que $D$ representa a dimensionalidade do problema respectivo ao classificador alvo. Cada dimensão desse vetor contínuo é posteriormente mapeada (decodificada) de forma dinâmica para os limites e os tipos de dados específicos (contínuos, discretos ou categóricos) requeridos pelos hiperparâmetros de cada modelo.
+
+Para mitigar o custo computacional atrelado ao ciclo das meta-heurísticas — que exigem milhares de avaliações consecutivas —, implementou-se um sistema interno de \textit{cache}. Esse mecanismo impede o re-treinamento de configurações numéricas contínuas distintas que, após o processo de decodificação, culminariam em hiperparâmetros práticos idênticos.
+
+Foram avaliados três algoritmos de classificação distintos, totalizando diferentes níveis de complexidade dimensional:
+\begin{itemize}
+    \item \textbf{Máquinas de Vetores de Suporte (SVM) ($D=8$):} Os hiperparâmetros otimizados englobam o parâmetro de regularização ($C$), o coeficiente do \textit{kernel} ($\gamma$), o tipo de \textit{kernel} (Linear, RBF, Polinomial ou Sigmoide), o grau do polinômio, coeficiente independente (\textit{coef0}), tolerância de parada, uso da heurística de \textit{shrinking} e o balanceamento de classes.
+    \item \textbf{\textit{Random Forest} (RF) ($D=9$):} A otimização abrange o número de árvores, profundidade máxima, número mínimo de amostras para divisão de nós e para nós folha, a proporção máxima de características consideradas por divisão, a utilização de \textit{bootstrap}, a métrica de qualidade da divisão (\textit{Gini}, entropia ou \textit{log loss}), o balanceamento de classes e o parâmetro de poda (\textit{ccp\_alpha}).
+    \item \textbf{\textit{K-Nearest Neighbors} (KNN) ($D=6$):} São ajustados o número de vizinhos ($k$), a função de ponderação (uniforme ou baseada na distância), a métrica de distância (\textit{Minkowski}, Euclidiana, \textit{Manhattan}, \textit{Chebyshev} ou cosseno), o parâmetro de potência $p$ (para \textit{Minkowski}), o algoritmo de busca e o tamanho da folha (\textit{leaf\_size}).
+\end{itemize}
+
+A fim de favorecer a construção de modelos mais parcimoniosos (alicerçados no princípio da Navalha de Occam), a função de aptidão incorpora intrinsecamente um termo de penalização de complexidade. Desse modo, a função de custo $F_{HPO}$ a ser minimizada pelo algoritmo de otimização é formalizada como:
+
+\begin{equation} 
+F_{HPO} = \min\Big(1.0, \max\big(0.0, (1 - Acc_{CV}) + \lambda \cdot \Omega(\mathbf{h})\big)\Big), 
+\end{equation}
+em que $Acc_{CV}$ é a acurácia média preditiva obtida através da validação cruzada estratificada, $\lambda$ representa o peso estático conferido à penalização e $\Omega(\mathbf{h}) \in [0,1]$ denota o custo normalizado de complexidade estrutural inerente à configuração de hiperparâmetros decodificada $\mathbf{h}$. Essa modelagem matemática impõe um compromisso (\textit{trade-off}) pragmático: perante duas configurações paramétricas que atinjam taxas de acerto análogas, as meta-heurísticas tenderão, naturalmente, a convergir para a solução de topologia mais simples, conferindo maior confiabilidade frente a novos dados.
+
+\begin{figure}[htbp] 
+\centering 
+\begin{tikzpicture}[ 
+    bloco/.style={rectangle, rounded corners=2pt, draw=black, fill=gray!10, minimum width=3.0cm, minimum height=0.8cm, align=center, font=\footnotesize}, 
+    seta/.style={-{Latex[length=2.6mm]}, thick} 
+] 
+\node[bloco] (vetor) at (-3.4,0) {Vetor contínuo\\ $\mathbf{x}\in[0,1]^D$ }; 
+\node[bloco] (decode) at (0,0) {Decodificação dos\\ hiperparâmetros}; 
+\node[bloco] (modelo) at (3.4,0) {Modelo de\\ aprendizado}; 
+\node[bloco] (cv) at (3.4,-1.5) {Validação cruzada\\ estratificada}; 
+\node[bloco] (acc) at (0,-1.5) {Acurácia média\\ $Acc_{CV}$ }; 
+\node[bloco] (fit) at (-3.4,-1.5) {Custo com Penalidade\\ $F_{HPO}$ };
+
+\draw[seta] (vetor) -- (decode);
+\draw[seta] (decode) -- (modelo);
+\draw[seta] (modelo) -- (cv);
+\draw[seta] (cv) -- (acc);
+\draw[seta] (acc) -- (fit);
+\end{tikzpicture} 
+\caption{Fluxo de avaliação para Otimização de Hiperparâmetros.} 
+\label{fig:hpo}
+{\small \textit{Fonte:  Elaboração própria (2026).}}
+\end{figure}
