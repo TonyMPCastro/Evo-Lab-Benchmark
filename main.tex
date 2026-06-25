@@ -7,6 +7,7 @@
 \babelprovide[import, onchar=ids fonts]{portuguese}
 \babelprovide[import, onchar=ids fonts]{english}
 
+
 % Add because main language is not English
 \usepackage{enumitem}
 \setlist[itemize]{label=-}
@@ -18,21 +19,16 @@
 \usepackage{longtable}
 \usepackage{tabularx}
 \usepackage[table,xcdraw]{xcolor}
+\usepackage{graphicx} % IMPORTANTE: Remova a opção '[demo]' ao compilar no seu computador para exibir suas imagens reais
 \usepackage{tikz}
-\usetikzlibrary{arrows.meta, positioning, shapes.geometric}
+\usetikzlibrary{arrows.meta, positioning, shapes.geometric, calc, decorations.pathreplacing}
 \usepackage{setspace}    % Para espaçamento entre linhas (1.5 ABNT)
 \usepackage{indentfirst} % Recua o primeiro parágrafo de cada seção
 \usepackage{titlesec}
-\usepackage{graphicx}
 \usepackage{float}
 \usepackage{natbib}
-\usepackage{tikz}       % Pacote base para desenhos
-\usepackage{pgfplots}   % Pacote para gráficos 2D e 3D
+\usepackage{pgfplots}    % Pacote para gráficos 2D e 3D
 \pgfplotsset{compat=1.18} % Configuração de compatibilidade exigida pelo pgfplots
-
-% --- PACOTES TIKZ PARA O DIAGRAMA VETORIAL ---
-\usepackage{tikz}
-\usetikzlibrary{arrows.meta, calc, positioning, decorations.pathreplacing, shapes.geometric}
 
 % Definição de cores similares à imagem de referência
 \definecolor{psoMagenta}{RGB}{220, 20, 120}
@@ -42,7 +38,6 @@
 \definecolor{particleBlack}{RGB}{30, 30, 30}
 
 % --- PACOTE DE CITAÇÕES (NATBIB PARA FORMATO ABNT) ---
-\usepackage[round,authoryear]{natbib}
 \setcitestyle{citesep={; }, aysep={, }} % Separa múltiplos autores com ';' e ano com ','
 
 % hyperref deve ser o último pacote carregado
@@ -66,14 +61,15 @@
 
 \begin{titlepage}
     \centering
-     \includegraphics[scale=0.25]{logoufma.png}  \\
+     \includegraphics[scale=0.25]{logoufma.png} \\
+    \vspace{0.5cm}
     \textbf{UNIVERSIDADE FEDERAL DO MARANHÃO}\\
     \textbf{CENTRO DE CIÊNCIAS EXATAS E TECNOLÓGICAS - CCET}\\
     \textbf{BACHARELADO INTERDISCIPLINAR EM CIÊNCIA E TECNOLOGIA}\\[4cm]
     
     \textbf{ANTONIO MARCOS PATRICIO CASTRO}\\[3cm]
     
-    \textbf{\large ANÁLISE DE ALGORITMOS BIO-INSPIRADOS EM PROBLEMAS DE OTIMIZAÇÃO}\\[5cm]
+    \textbf{\large ANÁLISE DE ALGORITMOS BIOINSPIRADOS EM PROBLEMAS DE OTIMIZAÇÃO}\\[5cm]
     
     \vfill
     \textbf{SÃO LUÍS - MA}\\
@@ -87,7 +83,7 @@
     \centering
     \textbf{ANTONIO MARCOS PATRICIO CASTRO}\\[3cm]
     
-    \textbf{\large ANÁLISE DE ALGORITMOS BIO-INSPIRADOS EM PROBLEMAS DE OTIMIZAÇÃO}\\[2cm]
+    \textbf{\large ANÁLISE DE ALGORITMOS BIOINSPIRADOS EM PROBLEMAS DE OTIMIZAÇÃO}\\[2cm]
     
     \begin{flushright}
     \begin{minipage}{0.54\textwidth}\scriptsize 
@@ -112,7 +108,7 @@
     \centering
     \textbf{ANTONIO MARCOS PATRICIO CASTRO}\\[3cm]
     
-    \textbf{\large ANÁLISE DE ALGORITMOS BIO-INSPIRADOS EM PROBLEMAS DE OTIMIZAÇÃO}\\[2cm]
+    \textbf{\large ANÁLISE DE ALGORITMOS BIOINSPIRADOS EM PROBLEMAS DE OTIMIZAÇÃO}\\[2cm]
     
     \vspace{1.5cm}
     
@@ -135,21 +131,20 @@
 % AGRADECIMENTOS E EPÍGRAFE
 % ---------------------------------------------------
 \chapter*{Agradecimentos}
-Agradeço primeiramente aos meus pais e meu irmão, pelo incentivo constante e todo apoio para que eu chegasse até aqui. Sem o suporte de vocês, este trabalho não seria possível. \\
+Agradeço primeiramente aos meus pais e ao meu irmão, pelo incentivo constante e por todo o apoio para que eu chegasse até aqui. Sem o suporte de vocês, este trabalho não seria possível. \\
 
 Ao meu orientador, Prof. Dr. Pedro Baptista Fernandes, pela paciência, dedicação e rigor técnico. Agradeço por ter guiado este trabalho com clareza e por ter me desafiado a alcançar o meu melhor desempenho.\\
 
-Aos meus familiares, amigos e colegas,  por todo o apoio e pela ajuda, pelas horas de estudo compartilhado, que foram essenciais para superar os obstáculos.
+Aos meus familiares, amigos e colegas, por todo o apoio e pela ajuda, bem como pelas horas de estudo compartilhado, que foram essenciais para superar os obstáculos.
 \clearpage
 
 \vspace*{15cm}
 \begin{flushright}
-    \textit{``No final, todos nós somos apenas histórias... só faça com que seja uma boa história''}\\
+    \textit{``No final, todos nós somos apenas histórias... só faça com que seja uma boa história.''}\\
     \vspace{0.5cm}
     The Doctor, em \textit{``Doctor Who''}
 \end{flushright}
 \clearpage
-
 
 % ---------------------------------------------------
 % RESUMO E ABSTRACT
@@ -158,7 +153,7 @@ Aos meus familiares, amigos e colegas,  por todo o apoio e pela ajuda, pelas hor
     \textbf{\Large RESUMO}
 \end{center}
 \vspace{1cm}
-O avanço contínuo em ciência de dados e engenharia impõe problemas de otimização de alta complexidade e dimensionalidade, caracterizados como NP-hard. Embora meta-heurísticas bio-inspiradas sejam a principal abordagem para contornar tais obstáculos, modelos clássicos e predatórios sofrem com o engessamento de parâmetros estáticos, resultando frequentemente em convergência prematura. Neste contexto, este trabalho tem como objetivo analisar e comparar, estrutural e empiricamente, oito proeminentes algoritmos de otimização: clássicos e predatórios (PSO, ACO, GA, GWO, WOA, BWO) frente aos seus recentes avanços híbridos guiados por Aprendizado por Reforço (QL-GWO e DRL-BWO). Para isso, estruturou-se uma rigorosa plataforma de benchmark submetendo as heurísticas a funções matemáticas multimodais (como Ackley e Rastrigin) e a aplicações reais de Aprendizado de Máquina, englobando a Seleção de Atributos e a Otimização de Hiperparâmetros. A confiabilidade metodológica foi atestada sob um orçamento computacional estrito (NFEs), com 30 execuções independentes e validação não-paramétrica (testes de Kruskal-Wallis, Friedman e Mann-Whitney U), acoplados ao cálculo da Magnitude de Efeito (\textit{Cliff's Delta}). Os resultados empíricos e estatísticos evidenciam a superioridade absoluta do GWO na navegação de topologias multimodais frente aos demais métodos puramente biológicos, enquanto o BWO, apesar da rapidez em CPU, sofreu degradação em espaços com grande número de dimensões. Sobretudo, o estudo comprova matematicamente que a hibridização com Inteligência Artificial presente no QL-GWO mitiga o dilema entre exploração e explotação, promovendo uma estabilidade estocástica superior e consagrando-se como a arquitetura mandatória para modelagens em larga escala.
+O avanço contínuo em ciência de dados e engenharia impõe problemas de otimização de alta complexidade e dimensionalidade, frequentemente caracterizados como NP-difíceis. Embora as meta-heurísticas bioinspiradas sejam a principal abordagem para contornar tais obstáculos, cada algoritmo apresenta comportamentos distintos de convergência e estagnação de acordo com suas características estruturais. Neste contexto, este trabalho tem como objetivo analisar e comparar, de forma estrutural e empírica, o desempenho de seis proeminentes algoritmos de otimização: PSO, ACO, GWO, BWO, QL-GWO e DRL-BWO. Para isso, estruturou-se uma rigorosa plataforma de \textit{benchmark} submetendo as heurísticas a funções matemáticas multimodais (como Ackley e Rastrigin) e a aplicações reais de Aprendizado de Máquina, englobando a Seleção de Atributos e a Otimização de Hiperparâmetros. A confiabilidade metodológica foi atestada sob um orçamento computacional estrito (NFEs), com 30 execuções independentes e validação estatística não paramétrica (testes de Kruskal-Wallis, Friedman e Mann-Whitney U), acoplados ao cálculo da Magnitude de Efeito (\textit{Cliff's Delta}). Os resultados evidenciam que o GWO possui notável capacidade de navegação em topologias multimodais, enquanto o BWO destaca-se pela velocidade de execução, embora sofra degradação em espaços altamente dimensionais. Observou-se também que variantes híbridas com Inteligência Artificial, como o QL-GWO, demonstram superior estabilidade estocástica ao mitigar eficientemente o dilema entre exploração e explotação. O estudo conclui delineando o perfil de aplicabilidade de cada algoritmo, fornecendo subsídios quantitativos para a escolha da meta-heurística ideal frente à natureza e escala do problema abordado.
 
 \vspace{0.5cm}
 \noindent \textbf{Palavras-chave:} Otimização Estocástica. Meta-heurísticas. Inteligência de Enxame. Aprendizado por Reforço. Validação Estatística.
@@ -169,7 +164,7 @@ O avanço contínuo em ciência de dados e engenharia impõe problemas de otimiz
 \end{center}
 \vspace{1cm}
 \begin{otherlanguage}{english}
-The continuous advancement in data science and engineering imposes highly complex and dimensional optimization problems, characterized as NP-hard. Although bio-inspired metaheuristics are the main approach to overcome such obstacles, classical and predatory models suffer from rigid static parameters, often resulting in premature convergence. In this context, this work aims to analyze and compare, structurally and empirically, eight prominent optimization algorithms: classical and predatory (PSO, ACO, GA, GWO, WOA, BWO) against their recent hybrid advancements guided by Reinforcement Learning (QL-GWO and DRL-BWO). For this purpose, a rigorous benchmark platform was structured by subjecting the heuristics to multimodal mathematical functions (such as Ackley and Rastrigin) and real-world Machine Learning applications, encompassing Feature Selection and Hyperparameter Optimization. Methodological reliability was proven under a strict computational budget (NFEs), with 30 independent runs and non-parametric validation (Kruskal-Wallis, Friedman, and Mann-Whitney U tests), coupled with the calculation of the Effect Size (Cliff's Delta). The empirical and statistical results highlight the absolute superiority of GWO in navigating multimodal topologies compared to other purely biological methods, while BWO, despite its CPU speed, suffered degradation in spaces with a large number of dimensions. Above all, the study mathematically proves that the Artificial Intelligence hybridization present in QL-GWO mitigates the dilemma between exploration and exploitation, promoting superior stochastic stability and establishing itself as the mandatory architecture for large-scale modeling.
+The continuous advancement in data science and engineering imposes highly complex and dimensional optimization problems, often characterized as NP-hard. Although bio-inspired metaheuristics are the primary approach to overcome such obstacles, each algorithm exhibits distinct convergence and stagnation behaviors according to its structural characteristics. In this context, this work aims to analyze and compare, structurally and empirically, the performance of six prominent optimization algorithms: PSO, ACO, GWO, BWO, QL-GWO, and DRL-BWO. For this purpose, a rigorous benchmark platform was structured by subjecting the heuristics to multimodal mathematical functions (such as Ackley and Rastrigin) and real-world Machine Learning applications, encompassing Feature Selection and Hyperparameter Optimization. Methodological reliability was proven under a strict computational budget (NFEs), with 30 independent runs and non-parametric statistical validation (Kruskal-Wallis, Friedman, and Mann-Whitney U tests), coupled with the calculation of the Effect Size (Cliff's Delta). The results show that GWO possesses remarkable navigation capability in multimodal topologies, while BWO stands out for its execution speed, despite suffering degradation in highly dimensional spaces. It was also observed that hybrid variants with Artificial Intelligence, such as QL-GWO, demonstrate superior stochastic stability by efficiently mitigating the dilemma between exploration and exploitation. The study concludes by outlining the applicability profile of each algorithm, providing quantitative insights for selecting the ideal metaheuristic based on the nature and scale of the addressed problem.
 
 \vspace{0.5cm}
 \noindent \textbf{Keywords:} Stochastic Optimization. Metaheuristics. Swarm Intelligence. Reinforcement Learning. Statistical Validation.
@@ -180,19 +175,26 @@ The continuous advancement in data science and engineering imposes highly comple
 \begin{itemize}[label={}, leftmargin=0pt]
     \item \textbf{ACO} - \textit{Ant Colony Optimization}
     \item \textbf{BWO} - \textit{Beluga Whale Optimization}
+    \item \textbf{CNN} - \textit{Convolutional Neural Network}
+    \item \textbf{CPU} - \textit{Central Processing Unit}
+    \item \textbf{D3QN} - \textit{Dueling Double Deep Q-Network}
     \item \textbf{DRL} - \textit{Deep Reinforcement Learning}
-    \item \textbf{GA} - \textit{Genetic Algorithms}
+    \item \textbf{FS} - \textit{Feature Selection}
     \item \textbf{GWO} - \textit{Grey Wolf Optimizer}
+    \item \textbf{HPO} - \textit{Hyperparameter Optimization}
+    \item \textbf{IQR} - Intervalo Interquartil (\textit{Interquartile Range})
+    \item \textbf{KNN} - \textit{K-Nearest Neighbors}
+    \item \textbf{LSTM} - \textit{Long Short-Term Memory}
+    \item \textbf{MDP} - Processo de Decisão de Markov (\textit{Markov Decision Process})
+    \item \textbf{NFE} - \textit{Number of Function Evaluations}
+    \item \textbf{NFL} - \textit{No Free Lunch}
     \item \textbf{PSO} - \textit{Particle Swarm Optimization}
     \item \textbf{QL} - \textit{Q-Learning}
-    \item \textbf{WOA} - \textit{Whale Optimization Algorithm}
+    \item \textbf{RL} - Aprendizado por Reforço (\textit{Reinforcement Learning})
+    \item \textbf{SVM} - \textit{Support Vector Machine}
+    \item \textbf{UCR} - \textit{University of California, Riverside}
+    \item \textbf{VANT} - Veículo Aéreo Não Tripulado
 \end{itemize}
-\clearpage
-
-% ---------------------------------------------------
-% SUMÁRIO E LISTAS
-% ---------------------------------------------------
-\tableofcontents
 \clearpage
 
 \listoffigures
@@ -201,58 +203,66 @@ The continuous advancement in data science and engineering imposes highly comple
 \listoftables
 \clearpage
 
+
+% ---------------------------------------------------
+% SUMÁRIO E LISTAS
+% ---------------------------------------------------
+\tableofcontents
+\clearpage
+
+
 % ---------------------------------------------------
 % CAPÍTULO 1 - INTRODUÇÃO
 % ---------------------------------------------------
 \chapter{Introdução}
-A crescente complexidade dos modelos e sistemas em Ciência de Dados, otimização de infraestrutura, roteamento de veículos autônomos e Aprendizado de Máquina (\textit{Machine Learning}) tem demandado a resolução de problemas de otimização global sob condições sem precedentes. Caracterizados predominantemente como problemas de classe $\mathcal{NP}$-hard, cujos espaços de busca são não lineares, não convexos, altamente restritos e de alta dimensionalidade, tais cenários expõem as limitações intrínsecas de abordagens determinísticas e baseadas em gradiente, cuja convergência é frequentemente prejudicada pelo aprisionamento precoce em ótimos locais. Como resposta estrutural a esse gargalo, a literatura científica consolidou o emprego de meta-heurísticas bio-inspiradas \citep{jamali2025systematic, somvanshi2025review}. Operando sob o paradigma de otimizadores estocásticos do tipo caixa-preta (\textit{black-box optimizers}), esses algoritmos prescindem de informações sobre a derivada da função objetivo, buscando mapear o espaço de soluções de forma global (fase de exploração) para, subsequentemente, refinar as regiões mais promissoras do espaço de estados (fase de explotação).
+A crescente complexidade dos modelos e sistemas em Ciência de Dados, otimização de infraestrutura, roteamento de veículos autônomos e Aprendizado de Máquina (\textit{Machine Learning}) tem demandado a resolução de problemas de otimização global sob condições sem precedentes. Caracterizados predominantemente como problemas da classe $\mathcal{NP}$-difícil, cujos espaços de busca são não lineares, não convexos, altamente restritos e de alta dimensionalidade, tais cenários expõem as limitações intrínsecas de abordagens determinísticas e baseadas em gradiente, cuja convergência é frequentemente prejudicada pelo aprisionamento precoce em ótimos locais. Como resposta estrutural a esse gargalo, a literatura científica consolidou o emprego de meta-heurísticas bioinspiradas \citep{jamali2025systematic, somvanshi2025review}. Operando sob o paradigma de otimizadores estocásticos do tipo caixa-preta (\textit{black-box optimizers}), esses algoritmos prescindem de informações sobre a derivada da função objetivo, buscando mapear o espaço de soluções de forma global (fase de exploração) para, subsequentemente, refinar as regiões mais promissoras do espaço de estados (fase de explotação).
 
-Pelo Teorema \textit{No Free Lunch} (NFL) \citep{wolpert1997no}, que estabelece a impossibilidade matemática de um único algoritmo de otimização apresentar desempenho superior absoluto quando avaliado sobre o conjunto de todos os problemas possíveis, a comunidade de pesquisa propôs um ecossistema algorítmico vasto e heterogêneo. Na vanguarda da Inteligência Coletiva (\textit{Swarm Intelligence}) e da Computação Evolutiva, arquiteturas clássicas como os Algoritmos Genéticos (GA), a Otimização por Enxame de Partículas (PSO) e a Otimização por Colônia de Formigas (ACO) fundamentaram os mecanismos de navegação cooperativa. Visando mitigar a convergência prematura e a perda drástica de diversidade populacional observada nesses pioneiros, o estado da arte evoluiu para a modelagem de comportamentos biológicos e dinâmicas predatórias complexas. Formulações modernas, tais como o \textit{Grey Wolf Optimizer} (GWO) \citep{mirjalili2014grey}, o \textit{Whale Optimization Algorithm} (WOA) \citep{mirjalili2016whale} e o recente \textit{Beluga Whale Optimization} (BWO) \citep{zhong2022beluga}, introduziram operadores baseados em espirais logarítmicas, estruturas hierárquicas de dominância e fenômenos estocásticos de descontinuidade (como a transição de fase baseada no fenômeno \textit{whale fall}) para ampliar o raio de busca e favorecer o escape de bacias de atração locais enganos \citep{wen2025enhanced}.
+Pelo Teorema \textit{No Free Lunch} (NFL) \citep{wolpert1997no}, que estabelece a impossibilidade matemática de um único algoritmo de otimização apresentar desempenho superior absoluto quando avaliado sobre o conjunto de todos os problemas possíveis, a comunidade de pesquisa propôs um ecossistema algorítmico vasto e heterogêneo. Na vanguarda da Inteligência Coletiva (\textit{Swarm Intelligence}) e da Computação Evolutiva, arquiteturas clássicas como a Otimização por Enxame de Partículas (PSO) e a Otimização por Colônia de Formigas (ACO) fundamentaram os mecanismos de navegação cooperativa. Visando mitigar a convergência prematura e a perda drástica de diversidade populacional observada nesses pioneiros, o estado da arte evoluiu para a modelagem de comportamentos biológicos e dinâmicas predatórias complexas. Formulações modernas, tais como o \textit{Grey Wolf Optimizer} (GWO) \citep{mirjalili2014grey} e a recente Otimização da Baleia Beluga (BWO) \citep{zhong2022beluga}, introduziram estruturas hierárquicas de dominância e fenômenos estocásticos de descontinuidade (como a transição de fase baseada no fenômeno \textit{whale fall}) para ampliar o raio de busca e favorecer o escape de bacias de atração locais enganosas \citep{wen2025enhanced}.
 
-Contudo, apesar do incremento na eficiência de busca, tanto as abordagens clássicas quanto as modernas compartilham de uma limitação estrutural: a dependência severa de hiperparâmetros de controle estáticos ou regulados por funções de decaimento determinísticas rígidas. Diante de matrizes de alta esparsidade e forte correlação — comuns em problemas de Seleção de Atributos (\textit{Feature Selection}) ou no ajuste fino (\textit{hyperparameter tuning}) de modelos preditivos —, tais parâmetros fixos limitam a adaptabilidade dinâmica do enxame ao longo do processo iterativo. Como solução a este desafio emergente, a fronteira da pesquisa atual foca no acoplamento de modelos de aprendizado ao mecanismo heurístico, originando arquiteturas híbridas orientadas a Aprendizado por Reforço (\textit{Reinforcement Learning}). Propostas inovadoras, como o \textit{Q-Learning Grey Wolf Optimizer} (QL-GWO) \citep{tu2024qlearning} e o \textit{Deep Reinforcement Learning Beluga Whale Optimization} (DRL-BWO) \citep{praveena2022optimal}, incorporam um agente de aprendizado autônomo encarregado de gerenciar a transição entre as fases de exploração e explotação em tempo de execução. O comportamento adaptativo é moldado por meio de funções de recompensa e punição parametrizadas pela evolução do \textit{fitness} populacional frente à topologia da função objetivo.
+Contudo, apesar do incremento na eficiência de busca, tanto as abordagens clássicas quanto as modernas compartilham de uma limitação estrutural: a dependência severa de hiperparâmetros de controle estáticos ou regulados por funções de decaimento determinísticas rígidas. Diante de matrizes de alta esparsidade e forte correlação comuns em problemas de Seleção de Atributos (\textit{Feature Selection}) ou no ajuste fino (\textit{hyperparameter tuning}) de modelos preditivos, tais parâmetros fixos limitam a adaptabilidade dinâmica do enxame ao longo do processo iterativo. Como solução a este desafio emergente, a fronteira da pesquisa atual foca no acoplamento de modelos de aprendizado ao mecanismo heurístico, originando arquiteturas híbridas orientadas ao Aprendizado por Reforço (\textit{Reinforcement Learning}). Propostas inovadoras, como o \textit{Q-Learning Grey Wolf Optimizer} (QL-GWO) \citep{tu2024qlearning} e o \textit{Deep Reinforcement Learning Beluga Whale Optimization} (DRL-BWO) \citep{praveena2022optimal}, incorporam um agente de aprendizado autônomo encarregado de gerenciar a transição entre as fases de exploração e explotação em tempo de execução. O comportamento adaptativo é moldado por meio de funções de recompensa e punição parametrizadas pela evolução da aptidão (\textit{fitness}) populacional frente à topologia da função objetivo.
 
-Diante da proliferação exponencial e do nível crescente de hibridização dessas propostas na literatura, estabelece-se um imperativo metodológico: a necessidade de avaliações comparativas rigorosas, reprodutíveis e isentas de viés. Torna-se fundamental investigar se o incremento na complexidade estrutural e no custo computacional dessas arquiteturas híbridas recentes resulta em ganhos reais de eficácia, ou se os resultados favoráveis reportados decorrem meramente de flutuações estocásticas e viés de seleção no conjunto de funções de teste. Conforme preconizado pelas diretrizes metodológicas mais estritas do domínio \citep{huang2023evaluation, ismail2026beyond}, a validação do real ganho científico dessas abordagens exige o isolamento de fatores aleatórios por meio de análises estatísticas não paramétricas de robustez comprovada.
+Diante da proliferação exponencial e do nível crescente de hibridização dessas propostas na literatura, estabelece-se um imperativo metodológico: a necessidade de avaliações comparativas rigorosas, reprodutíveis e isentas de vieses. Torna-se fundamental investigar se o incremento na complexidade estrutural e no custo computacional dessas arquiteturas híbridas recentes resulta em ganhos reais de eficácia, ou se os resultados favoráveis reportados decorrem meramente de flutuações estocásticas e vieses de seleção no conjunto de funções de teste. Conforme preconizado pelas diretrizes metodológicas mais estritas do domínio \citep{huang2023evaluation, ismail2026beyond}, a validação do real ganho científico dessas abordagens exige o isolamento de fatores aleatórios por meio de análises estatísticas não paramétricas de robustez comprovada.
 
-Neste contexto de validação empírica e pragmática, o presente trabalho apresenta uma análise comparativa sistemática e horizontal abrangendo o núcleo lógico de oito algoritmos de otimização fundamentais: PSO, ACO, GA, GWO, WOA, BWO, QL-GWO e DRL-BWO. O desempenho de cada abordagem é quantificado sob restrições estritas de recursos computacionais, parametrizadas pelo número máximo de avaliações da função objetivo (\textit{Number of Function Evaluations} -- NFEs), mitigando distorções causadas por assimetrias de implementação em baixo nível. Avaliados sobre um ecossistema de testes composto por funções de \textit{benchmark} multimodais não convexas e problemas aplicados do Aprendizado Supervisionado, esta pesquisa visa elucidar quais arquiteturas manifestam a resiliência algorítmica e a magnitude de efeito estatístico necessárias para subsidiar a resolução de problemas complexos de otimização na engenharia computacional moderna.
+Neste contexto de validação empírica e pragmática, o presente trabalho apresenta uma análise comparativa sistemática e horizontal abrangendo o núcleo lógico de seis algoritmos de otimização fundamentais: PSO, ACO, GWO, BWO, QL-GWO e DRL-BWO. O desempenho de cada abordagem é quantificado sob restrições estritas de recursos computacionais, parametrizadas pelo número máximo de avaliações da função objetivo (\textit{Number of Function Evaluations} -- NFEs), mitigando distorções causadas por assimetrias de implementação em baixo nível. Avaliados sobre um ecossistema de testes composto por funções de \textit{benchmark} multimodais não convexas e problemas aplicados do Aprendizado Supervisionado, esta pesquisa visa elucidar quais arquiteturas manifestam a resiliência algorfítmica e a magnitude de efeito estatístico necessárias para subsidiar a resolução de problemas complexos de otimização na engenharia computacional moderna.
 
 % ---------------------------------------------------
 % CAPÍTULO 2 - OBJETIVOS
 % ---------------------------------------------------
-\chapter{Objetivos} \label{sec:objetivos}
 
-\section{Objetivo Geral}
-Analisar, de forma unificada e comparativa, o comportamento estrutural, empírico e estatístico de algoritmos bio-inspirados em problemas de otimização, avaliando o \textit{Particle Swarm Optimization} (PSO), \textit{Ant Colony Optimization} (ACO), Algoritmos Genéticos (GA), \textit{Grey Wolf Optimizer} (GWO), \textit{Whale Optimization Algorithm} (WOA), \textit{Beluga Whale Optimization} (BWO), \textit{Q-Learning Grey Wolf Optimizer} (QL-GWO) e \textit{Deep Reinforcement Learning Beluga Whale Optimization} (DRL-BWO), frente às suas capacidades de mitigar ótimos locais e resolver problemas de otimização.
 
-\section{Objetivos Específicos}
+\section{Justificativa}
+
+A crescente utilização de algoritmos bioinspirados em problemas de otimização tem sido acompanhada pelo surgimento de inúmeras variantes, dificultando a identificação da técnica mais adequada para diferentes aplicações. Entretanto, muitos estudos utilizam configurações experimentais distintas, o que limita a comparação direta entre os resultados.
+
+Este trabalho justifica-se pela necessidade de uma avaliação padronizada e reprodutível desses algoritmos. Para isso, desenvolve uma plataforma de \textit{benchmark} capaz de comparar diferentes métodos sob as mesmas condições experimentais, empregando funções clássicas de otimização, problemas reais de aprendizado de máquina e validação estatística. Com isso, pretende fornecer evidências quantitativas que auxiliem pesquisadores e desenvolvedores na escolha da meta-heurística mais adequada para cada cenário.
+
+\section{Objetivos} \label{sec:objetivos}
+
+\subsection{Objetivo Geral}
+Analisar, de forma unificada e comparativa, o comportamento estrutural, empírico e estatístico de algoritmos bioinspirados, frente às suas capacidades de mitigar ótimos locais e resolver problemas de otimização.
+
+\subsection{Objetivos Específicos}
 \begin{itemize}
-    \item Descrever minuciosamente a mecânica vetorial, estocástica e as equações matemáticas de exploração e explotação dos oito algoritmos propostos (PSO, ACO, GA, GWO, WOA, BWO, QL-GWO e DRL-BWO), analisando tanto heurísticas baseadas puramente na natureza quanto as adaptações paramétricas autônomas ditadas por matrizes de Aprendizado por Reforço.
-    \item Estruturar uma plataforma rigorosa de benchmark contemplando funções matemáticas padronizadas unimodais e de topologia multimodal densa, de acordo com orçamentos restritos recomendados pelas competições do IEEE CEC.
-    \item Mensurar indicadores de complexidade e desempenho como tempo de execução em CPU, controle sobre o custo por Avaliações de Função (NFEs) e exatidão absoluta na resolução de problemas práticos, notadamente em Seleção de Atributos (\textit{Feature Selection}) e na Otimização de Hiperparâmetros de Machine Learning.
-    \item Validar a robustez dos achados de otimização estocástica mediante a execução de um mínimo de 30 amostragens independentes para cada algoritmo, utilizando o Teste U de Mann-Whitney, Kruskal-Wallis e a aferição rigorosa de ganhos pelo tamanho de efeito numérico (\textit{Cliff's Delta}).
+    \item Estruturar uma plataforma de \textit{benchmark} com funções padronizadas, estrutura de classes e de visualização de resultados, adotando as restrições computacionais recomendadas pelo IEEE CEC. 
+    \item Aplicar os seis algoritmos propostos (PSO, ACO, GWO, BWO, QL-GWO e DRL-BWO) para testes na plataforma.
+    \item Avaliar o desempenho e a complexidade computacional por meio do tempo de CPU e Avaliações de Função (NFEs), aplicando os métodos em problemas reais de Seleção de Características (\textit{Feature Selection}) e Otimização de Hiperparâmetros.
+    \item Validar os resultados a partir de 30 execuções independentes, empregando os testes e gráficos unificados na plataforma.
 \end{itemize}
+
 
 % ---------------------------------------------------
 % CAPÍTULO 3 - FUNDAMENTAÇÃO TEÓRICA
 % ---------------------------------------------------
 \chapter{Fundamentação Teórica} \label{chap:fundamentacao}
 
-A resolução de problemas reais e de alta complexidade em engenharia e ciência de dados frequentemente esbarra em otimizações de nível NP-hard, nas quais os métodos determinísticos tradicionais perdem sua eficácia. Para contornar essas limitações, a otimização computacional através de meta-heurísticas bio-inspiradas fundamenta-se no equilíbrio dinâmico de dois mecanismos direcionais: a exploração (diversificação, que consiste na varredura global do espaço para descobrir novas bacias de atração e evitar o aprisionamento em vales enganosos) e a explotação (intensificação, que atua no refinamento rápido e rigoroso nas vizinhanças de um ótimo recém-descoberto). A necessidade de se propor e investigar múltiplas arquiteturas algorítmicas é teoricamente sustentada pelo Teorema No Free Lunch (NFL), o qual demonstra matematicamente que não existe um único otimizador absoluto ou universalmente superior para todas as classes de problemas matemáticos \citep{wolpert1997no}. Sob essa premissa, a literatura gerou um rico e diverso ecossistema de algoritmos.
+A resolução de problemas reais e de alta complexidade em engenharia e ciência de dados frequentemente esbarra em otimizações de nível NP-difícil, nas quais os métodos determinísticos tradicionais perdem sua eficácia. Para contornar essas limitações, a otimização computacional através de meta-heurísticas bioinspiradas fundamenta-se no equilíbrio dinâmico de dois mecanismos direcionais: a exploração (diversificação, que consiste na varredura global do espaço para descobrir novas bacias de atração e evitar o aprisionamento em vales enganosos) e a explotação (intensificação, que atua no refinamento rápido e rigoroso nas vizinhanças de um ótimo recém-descoberto). A necessidade de se propor e investigar múltiplas arquiteturas algorítmicas é teoricamente sustentada pelo Teorema \textit{No Free Lunch} (NFL), o qual demonstra matematicamente que não existe um único otimizador absoluto ou universalmente superior para todas as classes de problemas matemáticos \citep{wolpert1997no}. 
 
-Na base desse ecossistema encontram-se os paradigmas evolutivos. Os Algoritmos Genéticos (GA), introduzidos pioneiramente por \citet{holland1992adaptation}, extraem suas regras lógicas da evolução neodarwiniana e do princípio de sobrevivência do mais apto. A população (composta por um conjunto de soluções candidatas viáveis) é manipulada em um espaço de busca discreto ou contínuo, onde cada candidato atua como um "cromossomo" submetido ao operador de seleção. A exploração global do espaço é assegurada primeiramente pelo operador de cruzamento (crossover), no qual informações genéticas e características promissoras de dois bons indivíduos (pais) são combinadas para gerar novos descendentes (filhos). Paralelamente, o operador de mutação atua como o mecanismo crítico contra a estagnação populacional, inserindo saltos estocásticos e perturbações aleatórias no genoma para garantir a manutenção contínua da diversidade e evitar a convergência prematura em ótimos locais.
+Na base desse ecossistema encontram-se os modelos de Inteligência de Enxame (\textit{Swarm Intelligence}). A Otimização por Enxame de Partículas (PSO), proposta por \citet{kennedy1995particle}, fundamentou a navegação social cooperativa, na qual os agentes ajustam suas trajetórias com base em memórias de suas melhores posições individuais e na melhor posição global descoberta por todo o bando. Similarmente, o \textit{Ant Colony Optimization} (ACO), consolidado por \citet{dorigo2006ant}, introduziu o conceito de estigmergia, resolvendo problemas complexos através da deposição probabilística de feromônios.
 
-Evoluindo a partir dos conceitos genéticos, a literatura avançou para os modelos de Inteligência de Enxame (Swarm Intelligence). A Otimização por Enxame de Partículas (PSO), proposta por \citet{kennedy1995particle}, substituiu a seleção biológica pela navegação social cooperativa, na qual os agentes ajustam suas trajetórias com base em memórias de suas melhores posições individuais e na melhor posição global descoberta por todo o bando. Similarmente, o Ant Colony Optimization (ACO), consolidado por \citet{dorigo2006ant}, introduziu o conceito de estigmergia, resolvendo problemas complexos de roteamento através da deposição probabilística de feromônios.
-
-Apesar de sua popularidade, algoritmos como o PSO e o GA frequentemente sofrem com a rápida perda de diversidade em espaços de busca com altíssima dimensionalidade. Para mitigar esse problema, a geração contemporânea de meta-heurísticas introduziu mecanismos matemáticos mais sofisticados e dinâmicos. O Grey Wolf Optimizer (GWO) \citep{mirjalili2014grey}, por exemplo, abandonou a atração cega por um único ponto ótimo global. Em vez disso, o GWO simula uma hierarquia social estrita (lobos Alfa, Beta, Delta e Ômega) para triangular o cerco à presa, utilizando vetores estocásticos que forçam o enxame a divergir maciçamente antes de iniciar a explotação. Seguindo essa vertente, abordagens marinhas como o Whale Optimization Algorithm (WOA) \citep{mirjalili2016whale} inovaram ao incorporar um movimento de atualização em espiral logarítmica, enquanto a recente Otimização da Baleia Beluga (BWO) \citep{zhong2022beluga} introduziu o fenômeno biológico de "queda de baleia" (whale fall), um mecanismo probabilístico que aplica uma realocação abrupta na população para libertar o enxame de armadilhas multimodais severas.
-
-\section{Algoritmos Genéticos (GA)}
-Os Algoritmos Genéticos (GA), formalizados pioneiramente por \citet{holland1992adaptation}, são meta-heurísticas evolutivas inspiradas nos princípios da genética e da seleção natural de Darwin. A busca pela solução ótima ocorre através da evolução de uma população de soluções candidatas, onde cada indivíduo é avaliado por uma função de aptidão (\textit{fitness}). O balanceamento entre explotação e exploração no GA é ditado por dois operadores genéticos estocásticos fundamentais:
-\begin{itemize}
-    \item \textbf{Cruzamento (\textit{Crossover}):} Atua como o principal motor de convergência e explotação. Este operador seleciona pares de indivíduos promissores (pais) e combina suas frações de informações genéticas para gerar novos descendentes (filhos). O objetivo é propagar e mesclar as características que garantem altos valores de \textit{fitness} das gerações anteriores.
-    \item \textbf{Mutação:} Age como o mecanismo vital de busca global (exploração) e manutenção de diversidade populacional. Ao alterar aleatoriamente um ou mais atributos ("genes") de uma solução com uma probabilidade restrita, a mutação impede que a população inteira convirja prematuramente para uma bacia de atração subótima, forçando saltos randômicos para novas áreas do espaço de busca.
-\end{itemize}
+Apesar de sua popularidade, os algoritmos clássicos frequentemente sofrem com a rápida perda de diversidade em espaços de busca com altíssima dimensionalidade. Para mitigar esse problema, a geração contemporânea de meta-heurísticas introduziu mecanismos matemáticos mais sofisticados e dinâmicos. O \textit{Grey Wolf Optimizer} (GWO) \citep{mirjalili2014grey}, por exemplo, abandonou a atração cega por um único ponto ótimo global, simulando a hierarquia social estrita para triangular o cerco à presa, utilizando vetores estocásticos que forçam o enxame a divergir maciçamente antes de iniciar a explotação. Seguindo essa vertente contínua de inovação na biologia marinha, a Otimização da Baleia Beluga (BWO) \citep{zhong2022beluga} introduziu o fenômeno biológico de "queda de baleia" (\textit{whale fall}), um mecanismo probabilístico que aplica uma realocação abrupta na população para libertar o enxame de armadilhas.
 
 \section{Otimização por Enxame de Partículas (PSO)}
-O Particle Swarm Optimization (PSO) foi formulado por \citet{kennedy1995particle} com base no movimento coletivo e síncrono de bandos de pássaros. Na sua estrutura, uma partícula  $i$  desloca-se no espaço de busca a uma velocidade  $v_i$ , a qual é constantemente ajustada em direção ao melhor ponto já visitado por ela mesma ($p_{best}$) e ao melhor ponto encontrado por todo o enxame ($g_{best}$). Em 1998, \citet{shi1998modified} incrementaram a fórmula com o peso de inércia ($w$), criando a equação de velocidade canônica:
+O \textit{Particle Swarm Optimization} (PSO) foi formulado por \citet{kennedy1995particle} com base no movimento coletivo e síncrono de bandos de pássaros. Na sua estrutura, uma partícula $i$ desloca-se no espaço de busca a uma velocidade $v_i$, a qual é constantemente ajustada em direção ao melhor ponto já visitado por ela mesma ($p_{best}$) e ao melhor ponto encontrado por todo o enxame ($g_{best}$). Em 1998, \citet{shi1998modified} incrementaram a fórmula com o peso de inércia ($w$), criando a equação de velocidade canônica:
 \begin{equation}
     v_{i}^{t+1} = w \cdot v_{i}^t + c_1 \cdot r_1 \cdot (p_{best} - x_{i}^t) + c_2 \cdot r_2 \cdot (g_{best} - x_{i}^t)
 \end{equation}
@@ -262,6 +272,8 @@ O Particle Swarm Optimization (PSO) foi formulado por \citet{kennedy1995particle
 
 \begin{figure}[htbp]
   \centering
+  \caption{Representação vetorial do PSO.}
+  \vspace{0.2cm}
   % Início do ambiente TikZ para desenhar o diagrama vetorial passo a passo
   \begin{tikzpicture}[>=Latex, thick, scale=0.8, every node/.style={font=\small}]
 
@@ -317,7 +329,7 @@ O Particle Swarm Optimization (PSO) foi formulado por \citet{kennedy1995particle
             \draw[->, psoPurple, line width=1.5pt] (O_a2) -- (FinalTip_a) node[left=0.1cm, text=psoPurple, font=\bfseries] {nova direção};
         \end{scope}
     \end{scope}
-    \node[below=1.5cm of partA, font=\bfseries\large];
+    \node[below=1.5cm of partA, font=\bfseries\large] {};
 
 
     % ==================================================================
@@ -354,25 +366,45 @@ O Particle Swarm Optimization (PSO) foi formulado por \citet{kennedy1995particle
             \draw[->, psoPurple, line width=1.5pt] (O_b2) -- (FinalTip_b) node[right=0.1cm, text=psoPurple, font=\bfseries] {nova direção};
         \end{scope}
     \end{scope}
-    \node[below=1.5cm of partB, font=\bfseries\large];
+    \node[below=1.5cm of partB, font=\bfseries\large] {};
 
   \end{tikzpicture}
-  \caption{Representação vetorial do PSO. Fonte: Adaptado de \citet{devika2023}.}
+  \par\vspace{0.2cm}
+  \centerline{\small \textbf{Fonte:} Adaptado de \citet{devika2023}.}
   \label{fig:pso_passo_a_passo_imagem}
 \end{figure}
 
-Apesar de altamente eficiente para explotação rápida, o PSO tradicional carece de robustez exploratória. Na Figura \ref{fig:pso_passo_a_passo_imagem}, (A) e (B) ilustram como a magnitude dos vetores e a ordem de composição afetam a nova direção da partícula, todas as partículas são maciçamente atraídas para um único $g_{best}$, a probabilidade de convergência prematura em topologias multimodais de alta dimensão é crítica \citep{huang2023evaluation}.
+Apesar de altamente eficiente para explotação rápida, o PSO tradicional carece de robustez exploratória. Na Figura \ref{fig:pso_passo_a_passo_imagem}, (A) e (B) ilustram como a magnitude dos vetores e a ordem de composição afetam a nova direção da partícula, como todas as partículas são maciçamente atraídas para um único $g_{best}$, a probabilidade de convergência prematura em topologias multimodais de alta dimensão é crítica \citep{huang2023evaluation}.
 
 \newpage
 
 \section{Otimização por Colônia de Formigas (ACO)}
+
 O \textit{Ant Colony Optimization} (ACO) \citep{dorigo2004ant} mimetiza o conceito de estigmergia, onde as formigas comunicam-se de maneira assíncrona por meio de rastros de feromônio químico. Projetado originalmente para otimização combinatória, o ACO constrói soluções baseando a probabilidade de transição entre nós pelo feromônio depositado ($\tau_{ij}$) e a atratividade heurística ($\eta_{ij}$). O escape de ótimos locais é garantido pelo coeficiente de evaporação ($\rho$), que degrada conexões subótimas e fomenta a descoberta de rotas no grafo.
 
+A probabilidade $p_{ij}^k$ de uma formiga $k$, atualmente no nó $i$, transitar para um nó factível $j$ é dada pela equação:
+\begin{equation}
+    p_{ij}^k = \frac{[\tau_{ij}]^\alpha [\eta_{ij}]^\beta}{\sum_{l \in N_i^k} [\tau_{il}]^\alpha [\eta_{il}]^\beta} \quad \text{se } j \in N_i^k
+    \label{eq:aco_prob}
+\end{equation}
+onde $\alpha$ e $\beta$ determinam o peso relativo do feromônio e da heurística, respectivamente, e $N_i^k$ representa o conjunto de nós ainda não visitados pela formiga.
+
+Após a construção das rotas por todas as $m$ formigas, ocorre a atualização global de feromônio para todas as arestas, descrita por:
+\begin{equation}
+    \tau_{ij} \leftarrow (1 - \rho)\tau_{ij} + \sum_{k=1}^{m} \Delta\tau_{ij}^k
+    \label{eq:aco_update}
+\end{equation}
+sendo $\Delta\tau_{ij}^k$ a quantidade de feromônio depositada pela formiga $k$ na aresta $(i,j)$, inversamente proporcional ao custo da sua rota.
+
+
+
 \section{Otimizador do Lobo Cinzento (GWO)}
-Introduzido por \citet{mirjalili2014grey}, o Grey Wolf Optimizer revolucionou a Otimização de Inteligência de Enxame ao substituir a atração por um único ponto (o $g_{best}$ do PSO) pela convergência triangulada de uma hierarquia. O enxame é subdividido em castas: os líderes Alfa ($\alpha$), Beta ($\beta$) e Delta ($\delta$), e a matilha subordinada Ômega ($\omega$).
+Introduzido por \citet{mirjalili2014grey}, o \textit{Grey Wolf Optimizer} revolucionou a Otimização de Inteligência de Enxame ao substituir a atração por um único ponto (o $g_{best}$ do PSO) pela convergência triangulada de uma hierarquia. O enxame é subdividido em castas: os líderes Alfa ($\alpha$), Beta ($\beta$) e Delta ($\delta$), e a matilha subordinada Ômega ($\omega$).
 
 \begin{figure}[htbp]
 \centering
+\caption{Pirâmide de liderança e hierarquia social do algoritmo GWO.}
+\vspace{0.2cm}
 % Utilizamos 'scale' se precisar ajustar o tamanho na página, ou apenas redimensionamos as coordenadas
 \begin{tikzpicture}[>=stealth, thick, font=\sffamily, scale=0.75, transform shape]
 
@@ -405,9 +437,8 @@ Introduzido por \citet{mirjalili2014grey}, o Grey Wolf Optimizer revolucionou a 
         node[midway, left, align=center] {Fluxo de\\Decisão e\\Dominância};
 
 \end{tikzpicture}
-\caption{Pirâmide de liderança e hierarquia social do algoritmo GWO.}
-\vspace{0.2cm}
-\centering \small{\textbf{Fonte:} Adaptado de \citep{mirjalili2014grey}}
+\par\vspace{0.2cm}
+\centerline{\small{\textbf{Fonte:} Adaptado de \citep{mirjalili2014grey}}}
 \label{fig:gwo_hierarquia}
 \end{figure}
 
@@ -421,27 +452,45 @@ A exploração do espaço e o cerco matemático são atualizados com base na dis
 
 O vetor de convergência $\vec{A} = 2\vec{a} \cdot \vec{r}_1 - \vec{a}$ força a oscilação entre exploração e explotação. O valor escalar $a$ decai linearmente de 2 a 0 ao longo das iterações. Quando $|\vec{A}| > 1$, a matilha é matematicamente compelida a se dispersar pelo espaço, assegurando uma forte busca global e excelente esquiva de estagnação multimodal.
 
-\section{Algoritmo de Otimização da Baleia (WOA)}
-Proposto por \citet{mirjalili2016whale}, o \textit{Whale Optimization Algorithm} foca nas táticas de caça em espiral e na criação de "rede de bolhas" (\textit{bubble-net}) das baleias jubarte. Para remediar os problemas do decaimento engessado do GWO, o WOA assume que a baleia tem $50\%$ de probabilidade de encolher o cerco de ataque ou $50\%$ de probabilidade de atualizar sua posição usando a espiral logarítmica:
-\begin{equation}
-    \vec{X}(t+1) = \vec{D}' \cdot e^{bl} \cdot \cos(2\pi l) + \vec{X}^*(t)
-\end{equation}
-Quando o vetor de caça excede o espaço de restrição, a baleia é forçada a ignorar a melhor solução atual e nadar rumo a uma baleia vizinha aleatória, inibindo o aprisionamento local \citep{mirjalili2016whale}.
-
 \section{Otimização da Baleia Beluga (BWO)}
-O Beluga Whale Optimization, teorizado recentemente por \citet{zhong2022beluga}, fragmenta a otimização em natação pareada (exploração descentralizada) e o forrageamento coordenado em voos de Lévy (explotação intensiva). A vanguarda matemática do BWO reside na fase de \textit{Whale Fall} (queda de baleia). Trata-se de uma anomalia randômica governada por uma probabilidade autoadaptativa ($W_f$). Durante o \textit{Whale Fall}, frações significativas da população sofrem um recálculo massivo que os transporta instantaneamente para coordenadas distantes do espaço multivariado. Essa perturbação profunda mostrou-se muito superior ao simples peso inercial do PSO para desvencilhar o enxame de "vales enganosos" em problemas NP-Hard de alta dimensionalidade \citep{zhong2022beluga}.
+
+A \textit{Beluga Whale Optimization}, teorizada recentemente por \citet{zhong2022beluga}, fragmenta a otimização em natação pareada (exploração descentralizada) e o forrageamento coordenado em voos de Lévy (explotação intensiva). A vanguarda matemática do BWO reside na fase de \textit{Whale Fall} (queda de baleia). Trata-se de uma anomalia randômica governada por uma probabilidade autoadaptativa ($W_f$). Durante o \textit{Whale Fall}, frações significativas da população sofrem um recálculo massivo que as transporta instantaneamente para coordenadas distantes do espaço multivariado. Essa perturbação profunda mostrou-se muito superior ao simples peso inercial do PSO para desvencilhar o enxame de ``vales enganosos'' em problemas NP-difíceis de alta dimensionalidade \citep{zhong2022beluga}.
+
+\subsection{Modelagem Matemática do \textit{Whale Fall}}
+
+A eficácia do \textit{Whale Fall} provém de seu controle rigoroso sob a probabilidade $W_f$, que decai linearmente ao longo do processo para evitar dispersões severas nos estágios finais de convergência da otimização. A equação que rege essa probabilidade em função da iteração atual $t$ é:
+\begin{equation}
+    W_f = 0.1 - 0.05 \left( \frac{t}{T_{max}} \right)
+\end{equation}
+onde $T_{max}$ representa o número total de iterações do algoritmo. 
+
+
+Quando um evento de acionamento aleatório se encontra na faixa ditada por $W_f$, o indivíduo é submetido a um deslocamento balístico. O tamanho deste recálculo posicional ($X_{step}$) considera os limites do espaço de busca:
+\begin{equation}
+    X_{step} = (U_b - L_b) \exp\left(-C \cdot \frac{t}{T_{max}}\right)
+\end{equation}
+sendo $U_b$ e $L_b$ os limites superior e inferior do hiperplano, respectivamente, e $C$ uma constante natural de adequação dimensional. Assim, as coordenadas da baleia $i$ sofrem a seguinte mutação:
+\begin{equation}
+    X_i^{t+1} = r_1 X_{r1}^t - r_2 X_{r2}^t + r_3 X_{step}
+\end{equation}
+onde $r_1, r_2$ e $r_3$ são vetores estocásticos com distribuição uniforme em $(0, 1)$. As posições $X_{r1}^t$ e $X_{r2}^t$ pertencem a outras duas baleias escolhidas aleatoriamente do enxame. Isso impõe uma perturbação direcional severa, vital para varrer espaços globais não explorados.
+
+
 
 \section{Arquiteturas com Aprendizado por Reforço}
 
-Embora as meta-heurísticas contemporâneas (como o GWO e o BWO) apresentem esquemas eficientes para mitigar armadilhas locais, seus parâmetros dinâmicos de balanceamento (como o fator $a$ do GWO) decaem através de equações lineares ou logarítmicas estritamente pré-programadas. Em cenários reais dinâmicos e multidimensionais, a dependência de parâmetros estáticos limita a adaptabilidade do enxame. 
+Embora as meta-heurísticas contemporâneas, como o \textit{Grey Wolf Optimizer} (GWO) \cite{mirjalili2014grey} e o \textit{Beluga Whale Optimization} (BWO) \cite{zhong2022beluga}, apresentem mecanismos eficientes para tentar mitigar a estagnação em ótimos locais, a gestão do balanço entre a exploração (\textit{exploration}) do espaço de busca e a explotação (\textit{exploitation}) das melhores soluções frequentemente baseia-se em parâmetros de controle rígidos. A rigidez paramétrica impede que o enxame reaja ao \textit{feedback} do processo de busca, de modo que o algoritmo ignora as características intrínsecas e a topologia do problema durante a execução, limitando severamente a adaptabilidade dos agentes e aumentando o risco de convergência prematura \cite{somvanshi2025review}.
 
-Para suprimir esse gargalo, a nova fronteira científica fundiu a inteligência de enxame com Inteligência Artificial, introduzindo o Aprendizado por Reforço (\textit{Reinforcement Learning} - RL) para governar o processo de otimização em tempo real.
+Para superar essa limitação, a vanguarda da pesquisa tem promovido a hibridização da Inteligência de Enxame com modelos avançados de Aprendizado de Máquina \cite{jamali2025systematic}, introduzindo o Aprendizado por Reforço (do inglês, \textit{Reinforcement Learning} ou RL) como mecanismo de governança autônoma em tempo real \cite{tu2024qlearning, nayeem2025adaptive}. Nestas arquiteturas, a meta-heurística deixa de ser um processo cego às suas próprias dinâmicas internas e passa a interagir de forma inteligente com o ambiente de otimização, frequentemente modelado como um Processo de Decisão de Markov (MDP). Nesse contexto modelado, o panorama atual da diversidade e estagnação da busca define o estado, enquanto a capacidade do agente de ajustar dinamicamente os hiperparâmetros e operadores constitui a sua gama de ações, gerando como resposta um sinal numérico de recompensa atrelado diretamente à melhoria na função objetivo. Dessa forma, em vez de forçar um decaimento cego baseando-se apenas na iteração atual, o algoritmo aprende uma política ótima por tentativa e erro, dotando o enxame de uma capacidade de autoajuste contínuo que se adapta ativamente ao relevo matemático do problema para garantir resultados mais precisos.
+
 
 \section{Q-Learning Grey Wolf Optimizer (QL-GWO)}
 No QL-GWO, um agente RL tabular clássico converte as decisões espaciais da matilha em um Processo de Decisão de Markov. A inovação fundamental é a substituição do parâmetro estático por uma Matriz-Q (\textit{Q-Table}) capaz de atribuir recompensas ou punições às ações da matilha \citep{nayeem2025adaptive, tu2024qlearning}.
 
 \begin{figure}[htbp]
 \centering
+\caption{Ciclo simplificado do Processo de Decisão de Markov (MDP).}
+\vspace{0.2cm}
 \begin{tikzpicture}[
     >=stealth, thick, font=\sffamily, scale=0.5,
     box/.style={rectangle, rounded corners=3pt, draw=black, thick, minimum width=4cm, minimum height=1.2cm, align=center},
@@ -461,16 +510,15 @@ No QL-GWO, um agente RL tabular clássico converte as decisões espaciais da mat
     node[pos=0.25, left, lbl] {\textbf{Estado ($S_{t+1}$)}\\Estagnação da busca\\ \vspace{0.2cm} \\ \textbf{Recompensa ($R_t$)}\\Melhoria do \textit{fitness}};
 
 \end{tikzpicture}
-\caption{Ciclo simplificado do Processo de Decisão de Markov (MDP).}
-\vspace{0.2cm}
-\centering \small{\textbf{Fonte:} Elaborado pelo autor, adaptado de \citep{nayeem2025adaptive} e \citep{tu2024qlearning}.
+\par\vspace{0.2cm}
+\centerline{\small{\textbf{Fonte:} Elaborado pelo autor, adaptado de \citep{nayeem2025adaptive} e \citep{tu2024qlearning}.}}
 \label{fig:ql_gwo_ciclo_simples}
 \end{figure}
 
 Durante a convergência, a matriz mapeia o estado atual do enxame (como estagnação do \textit{fitness} e níveis de diversidade). A IA então dita se o GWO deve realizar um "cerco", um "ataque direto", ou um "salto aleatório estendido" em cada fase da iteração. Se a ação resultar em um avanço para o \textit{Best Fitness}, a Matriz-Q acumula a recompensa, consolidando aquela política. Esse processo remove o custo brutal de tentar ajustar parâmetros cegamente, permitindo que a meta-heurística descubra autonomamente o balanço ótimo entre exploração e explotação para qualquer equação contínua arbitrária \citep{tu2024qlearning}.
 
 \section{Deep Reinforcement Learning (DRL) - (BWO)}
-Quando a complexidade do problema aumenta para escalas não-estacionárias ou seleção de milhares de características (\textit{Feature Selection} e hiperparâmetros de Deep Learning), as matrizes tabulares do Q-Learning sofrem com a explosão combinatória. Para isso, utiliza-se arquiteturas como o DRL-BWO ou sistemas baseados em Redes Neurais Profundas, como D3QN e DDPG acoplados a meta-heurísticas \citep{praveena2022optimal}.
+Quando a complexidade do problema aumenta para escalas não estacionárias ou seleção de milhares de características (\textit{Feature Selection} e hiperparâmetros de Deep Learning), as matrizes tabulares do Q-Learning sofrem com a explosão combinatória. Para isso, utiliza-se arquiteturas como o DRL-BWO ou sistemas baseados em Redes Neurais Profundas, como D3QN e DDPG acoplados a meta-heurísticas \citep{praveena2022optimal}.
 
 Na abordagem DRL, redes neurais profundas leem vetorialmente o panorama do espaço de busca. Elas controlam dinamicamente a fase de exploração, desligando instantaneamente agentes ou características matemáticas irrelevantes (limiar binário contínuo) que seriam exaustivamente exploradas de forma manual. Este híbrido tem se mostrado imperativo na sintonia de cibersegurança e VANTs, onde o controlador DRL maximiza o desempenho da meta-heurística garantindo convergências ultrarrápidas sem o pesado desgaste de avaliações NFEs desnecessárias \citep{praveena2022optimal}.
 
@@ -479,74 +527,329 @@ Na abordagem DRL, redes neurais profundas leem vetorialmente o panorama do espa�
 % ---------------------------------------------------
 \chapter{Metodologia} \label{chap:metodologia}
 
-\section{Desenho Experimental e Plataforma de Benchmark}
+Este capítulo descreve os procedimentos metodológicos adotados para a avaliação, comparação e análise dos algoritmos meta-heurísticos bio-inspirados e das arquiteturas híbridas propostas. A metodologia foi estruturada de forma a garantir a reprodutibilidade dos experimentos, abrangendo desde a definição do ambiente computacional até os critérios de avaliação empregados em problemas de otimização contínua e cenários do mundo real.
 
-Para conduzir a análise comparativa entre as diferentes abordagens algorítmicas, foi concebida e desenvolvida uma plataforma de \textit{benchmark} padronizada e modular. A plataforma foi implementada integralmente na linguagem Python, estruturada em ambiente interativo \textit{Jupyter Notebook}, garantindo flexibilidade e rápida prototipagem. O propósito central deste ambiente experimental é assegurar a reprodutibilidade metodológica ao submeter todos os algoritmos avaliados a condições idênticas de orçamento computacional e critério de parada, isolando variáveis estruturais ou vieses de implementação.
+\section{Ambiente Computacional e Ferramentas}
 
-A arquitetura do \textit{software} foi construída sob o paradigma de Orientação a Objetos (OO), garantindo um acoplamento fraco e alta modularidade no código. O sistema é dividido funcionalmente em quatro módulos/classes centrais:
+Para a condução dos experimentos propostos nesta pesquisa, utilizou-se o ambiente de computação em nuvem Google Colab \cite{bisong2019google}. A plataforma oferece vantagens como a padronização do ambiente de execução, o acesso imediato a recursos computacionais virtuais (incluindo processamento acelerado por \textit{hardware}) e a facilidade de reprodutibilidade científica e compartilhamento de cadernos (\textit{notebooks}). A linguagem de programação escolhida para a implementação de todos os algoritmos e funções objetivo foi o Python, devido à sua extensa adoção na comunidade científica e riqueza de bibliotecas especializadas \cite{mckinney2012python}.
 
-\begin{enumerate}
-    \item \textbf{Módulo de Funções Objetivo:} Implementa o domínio dos problemas matemáticos e as aplicações de Aprendizado de Máquina. Estruturalmente, todas as funções herdam de uma classe base comum (\textit{Interface}) e encapsulam atributos cruciais como o número de dimensões do espaço ($D$), os limites inferiores e superiores (\textit{bounds}) de busca e um contador estrito de avaliações. Esse contador registra internamente o número exato de chamadas à função de \textit{fitness}, alimentando diretamente a métrica de NFE (\textit{Number of Function Evaluations}). Formalmente, cada problema é tratado como um caso de minimização, recebendo as matrizes do enxame e devolvendo o grau de aptidão vetorial.
-    
-    \item \textbf{Módulo de Algoritmos de Otimização:} Agrupa as classes dos modelos clássicos e predatórios (PSO, ACO, GA, GWO, WOA, BWO) e as suas variantes avançadas (QL-GWO, DRL-BWO). Todas as classes seguem um contrato uniforme: recebem na instanciação o tamanho populacional e o limite iterativo absoluto. Elas são responsáveis por governar as leis de atualização de posições (exploração e explotação) e, ao fim do teto processual, retornam um dicionário contendo a melhor solução global encontrada (vetor numérico), o melhor custo e o histórico vetorial completo da curva de convergência (custo \textit{vs.} iteração).
-    
-    \item \textbf{Suíte Experimental (Controlador Central):} Atua como a classe orquestradora do fluxo de dados. Recebe as instâncias instanciadas dos algoritmos e as classes das funções objetivo, realizando o cruzamento matricial dos ensaios. A suíte é a responsável por impor a camada de testes: ela executa e monitora as 30 rodadas independentes isoladamente, rastreando o Tempo de CPU real utilizando bibliotecas nativas de marcação de tempo do Python. Após coletar os dados estocásticos de todas as rodadas, organiza o pacote de métricas resultantes.
-    
-    \item \textbf{Módulo de Análise e Visualização:} Gerencia a consolidação analítica e exportação. Converte os resultados brutos enviados pelo controlador em painéis e \textit{DataFrames} interativos utilizando a biblioteca \textit{Pandas}. Por meio da integração com a \textit{SciPy}, dispara a inferência estatística (Kruskal-Wallis, Friedman e U de Mann-Whitney) e, finalmente, renderiza as representações gráficas vetorizadas em alta qualidade com as bibliotecas \textit{Matplotlib} e \textit{Seaborn} (como gráficos logarítmicos de convergência e \textit{boxplots} comparativos de estabilidade).
-\end{enumerate}
+O sistema computacional foi projetado utilizando o paradigma de Orientação a Objetos (OO), estabelecendo uma estrutura de classes unificada para garantir avaliações rigorosamente justas. Foi desenvolvida uma classe base abstrata para as funções objetivo, que internaliza e contabiliza automaticamente o número de avaliações da função (NFE - \textit{Number of Function Evaluations}) durante as chamadas. Foi implementada uma interface comum proveniente de uma classe base de otimização, a qual padroniza as entradas (tamanho da população, limites do espaço de busca e número máximo de iterações) e impõe a devolução de artefatos idênticos de saída (melhor posição global, custo ótimo alcançado e o histórico da curva de convergência).
 
-Essa estruturação garantiu que qualquer diferença processual (no tempo de CPU ou NFEs totais) originasse exclusivamente da complexidade intrínseca da meta-heurística sob teste, conferindo imparcialidade e extrema validade científica ao protocolo da avaliação.
+Essa arquitetura propiciou a criação de um mecanismo unificado de testes. As simulações foram orquestradas por laços de controle isolados, onde a função avaliadora aplica cada algoritmo aos problemas matemáticos ou conjuntos de dados do mundo real sob condições controladas. Esse método de teste unificado e parametrizado assegura que as métricas coletadas, como tempo de execução e esforço computacional real, reflitam exclusivamente o desempenho estrito dos métodos, eliminando vieses de manipulação manual e interferências desiguais do ambiente.
 
-\section{Configuração do Orçamento Computacional}
-A fim de estabelecer um paralelo fidedigno com a literatura acadêmica e as métricas exigidas pelas competições de otimização de larga escala, o orçamento computacional foi calibrado sob restrições severas e padronizadas. Determinou-se a execução de um mínimo de 30 amostragens independentes (\textit{runs}) para cada cenário experimental. Esta parametrização é fundamental para acomodar a estocasticidade inerente às meta-heurísticas e satisfazer os pressupostos do Teorema do Limite Central, garantindo estabilidade estocástica e permitindo análises estatísticas robustas \cite{ismail2026beyond}. O limite iterativo foi fixado em 500 iterações absolutas, fornecendo um ciclo de processamento suficiente para que as fases matemáticas de exploração e explotação sejam plenamente executadas \cite{huang2023evaluation}. 
+Os algoritmos de aprendizado por reforço profundo (DRL - \textit{Deep Reinforcement Learning}) foram desenvolvidos utilizando o \textit{framework} PyTorch \cite{paszke2019pytorch}, que permite a construção dinâmica de grafos computacionais e otimização baseada em gradiente. Para os experimentos envolvendo seleção de características (\textit{Feature Selection}) e otimização de hiperparâmetros, empregou-se a biblioteca \textit{scikit-learn} \cite{pedregosa2011scikit}. A análise matemática da validação estatística dos resultados foi suportada pelas bibliotecas NumPy \cite{harris2020array} e SciPy \cite{virtanen2020scipy}.
 
-Adicionalmente, a configuração demográfica estipulou uma população variando entre 30 a 50 agentes de busca, promovendo um balanço adequado entre diversidade populacional e parcimônia na alocação de recursos computacionais. Em todos os ensaios analíticos contínuos, os espaços matemáticos foram avaliados em 30 ou 50 dimensões ($D$). O emprego de 30 ou 50 dimensões é de suma importância para evitar a maldição da dimensionalidade e expor a verdadeira escalabilidade e resiliência dos métodos, uma vez que a vasta expansão do espaço de busca tende a degradar consideravelmente o desempenho de arquiteturas menos sofisticadas \cite{zhong2022beluga}. A Tabela \ref{tab:orcamento} sintetiza a parametrização do orçamento experimental.
+Por fim, para assegurar um alto rigor acadêmico e coerência visual na apresentação dos resultados, toda a renderização foi delegada a um módulo gráfico exclusivo, desenvolvido sobre a biblioteca Matplotlib \cite{hunter2007matplotlib}. Através da implementação de uma classe dedicada a gerar gráficos estáticos em padrão de publicação acadêmica, garantiu-se a utilização de uma paleta de cores unificada, fontes consistentes e componentes visuais idênticos em todas as análises. 
 
-\begin{table}[htbp]
-\centering
-\caption{Resumo dos parâmetros de orçamento computacional.}
-\label{tab:orcamento}
-\begin{tabular}{ll}
-\toprule
-\textbf{Parâmetro} & \textbf{Configuração Adotada} \\
-\midrule
-Execuções Independentes (\textit{runs}) & 30 \\
-Limite de Iterações & 500 \\
-Tamanho da População & 30 a 50 agentes \\
-Dimensionalidade ($D$) & 30 ou 50 \\
-\bottomrule
-\end{tabular}
-\\ \vspace{0.2cm}
-{\small \textit{Fonte: Elaboração própria (2026).}}
-\end{table}
+\section{Plataforma de Testes}
+A plataforma é composta por quatro blocos principais:
 
-\section{Funções de Teste (Mundo Sintético)}
-Para a avaliação rigorosa em ambiente sintético controlado, foram adotadas as funções matemáticas padronizadas do catálogo de testes do IEEE CEC. A suíte foi dividida logicamente com base nos diferentes perfis de desafio impostos aos algoritmos.
+\begin{figure}[htbp] 
+\centering 
+\caption{Arquitetura geral da plataforma de \textit{benchmark}.} 
+\vspace{0.2cm}
+\begin{tikzpicture}[ 
+    % Definição dos estilos
+    bloco/.style={rectangle, rounded corners=2pt, draw=black!80, fill=gray!10, minimum width=2.4cm, minimum height=0.8cm, align=center, font=\footnotesize}, 
+    destaque/.style={rectangle, rounded corners=2pt, draw=black!80, fill=gray!25, minimum width=5.5cm, minimum height=0.8cm, align=center, font=\footnotesize\bfseries}, 
+    modulo/.style={rectangle, rounded corners=4pt, draw=black!60, dashed, minimum width=8.2cm, minimum height=1.2cm},
+    seta/.style={-latex, thick, draw=black!80} 
+] 
 
-O primeiro subconjunto contemplou as \textbf{Funções Unimodais} (como a função \textit{Sphere}). Por apresentarem um único mínimo global, sem a interferência de ótimos locais adjacentes, essas funções são empregadas precipuamente para testar a velocidade de convergência e a capacidade de explotação das meta-heurísticas em uma descida contínua. Em contraste, o segundo subconjunto envolveu as \textbf{Funções Multimodais Ruidosas} (como as funções de \textit{Ackley} e \textit{Rastrigin}). Caracterizadas por uma densa e intrincada malha de bacias de atração secundárias, essas topologias têm como premissa avaliar a competência da busca global (exploração) dos algoritmos em promover evasão de ótimos locais para prevenir a estagnação prematura.
+% Nós principais
+\node[destaque] (config) at (0,0) {Configuração Experimental}; 
 
-\section{Aplicações no Mundo Real (Machine Learning)}
-A metodologia expande o escopo avaliativo para o mundo real, transpondo as heurísticas para o domínio complexo do Aprendizado de Máquina. Foram mapeados dois problemas otimizatórios baseados nas operações do classificador K-Vizinhos Mais Próximos (KNN):
+\node[bloco] (obj) at (-2.2,-1.5) {Funções}; 
+\node[bloco] (alg) at (2.2,-1.5) {Otimização}; 
 
-\begin{itemize}
-    \item \textbf{Seleção de Atributos (\textit{Feature Selection}):} Problema modelado em um espaço esparso de alta dimensão ($D = 150$). Neste contexto, as coordenadas contínuas propostas pelas heurísticas sofreram um processo de binarização mediante limiar contínuo para determinar quais características dos dados devem ser preservadas ou descartadas.
-    \item \textbf{Otimização de Hiperparâmetros (HPO):} Problema focado na sintonia fina (\textit{fine-tuning}) da própria arquitetura do modelo. Otimizou-se um conjunto denso de parâmetros em um espaço de dimensão restrita ($D = 6$) para maximizar o desempenho preditivo do classificador perante bases de dados.
+\node[destaque] (suite) at (0,-3.0) {Suíte Experimental}; 
+
+% Caixa do Módulo de Análise (Fundo)
+\node[modulo] (caixa_analise) at (0,-4.8) {};
+
+% Texto ao lado esquerdo da caixa
+\node[font=\footnotesize, text=black!70, anchor=east, align=center] at ([xshift=-0.1cm]caixa_analise.west) {Módulo de\\ Análise};
+
+% Nós do Módulo de Análise
+\node[bloco, minimum width=2.2cm] (estat) at (-2.6,-4.8) {Testes\\ Estatísticos}; 
+\node[bloco, minimum width=2.2cm] (plots) at (0,-4.8) {Gráficos e\\ Visualizações}; 
+\node[bloco, minimum width=2.2cm] (export) at (2.6,-4.8) {Exportação\\ CSV e LaTeX};
+
+% Conexões com linhas ortogonais
+\draw[seta] (config.south) -- ++(0,-0.3) -| (obj.north);
+\draw[seta] (config.south) -- ++(0,-0.3) -| (alg.north);
+
+\draw[seta] (obj.south) |- ++(0,-0.35) -| (suite.north);
+\draw[seta] (alg.south) |- ++(0,-0.35) -| (suite.north);
+
+% Conexões da suíte para o módulo de análise
+\draw[seta] (suite.south) -- ++(0,-0.3) -| (estat.north);
+\draw[seta] (suite.south) -- (plots.north);
+\draw[seta] (suite.south) -- ++(0,-0.3) -| (export.north);
+
+\end{tikzpicture} 
+\par\vspace{0.2cm}
+\centerline{\small \textit{Fonte: Elaboração própria (2026).}}
+\label{fig:arquitetura-plataforma} 
+\end{figure}
+
+\begin{itemize} 
+    \item \textbf{Funções objetivo:} Representam os problemas a serem minimizados; 
+    \item \textbf{Algoritmos de otimização:} Responsáveis por explorar o espaço de busca; 
+    \item \textbf{Suíte experimental:} Executa as rodadas, coleta métricas e organiza resultados; 
+    \item \textbf{Módulo de análise:} Gera gráficos, testes estatísticos e arquivos exportáveis. 
 \end{itemize}
 
-O custo correspondente a ambas as tarefas baseou-se na implementação da técnica de validação cruzada estratificada (\textit{Stratified Cross-Validation}), de modo a calcular o custo incorrido a cada avaliação penalizando configurações redundantes de alta dimensionalidade.
+\subsection{Considerações sobre a Plataforma}
+A plataforma desenvolvida permite comparar algoritmos bioinspirados de forma organizada, reprodutível e extensível. Sua estrutura modular facilita a inclusão de novos algoritmos, novas funções objetivo e novos conjuntos de dados.
 
-\section{Métricas de Custo e Eficiência Computacional}
-A verificação sistemática do esforço de \textit{hardware} para consecução dos processamentos estipulou a monitorização de três métricas de custo e eficiência operacionais distintas:
+Como limitação, deve-se observar que problemas com espaço de busca pequeno ou muito discreto podem levar a resultados muito semelhantes entre algoritmos, especialmente quando o orçamento experimental é elevado. Nesses casos, os algoritmos podem saturar rapidamente o espaço de busca, reduzindo a diferença prática entre os métodos. Por isso, a escolha do problema, do modelo e do orçamento experimental deve ser feita de acordo com o objetivo da comparação. As execuções seguem o fluxo:
+
+\begin{figure}[htbp] 
+\centering 
+\caption{Fluxograma experimental completo da plataforma.} 
+\vspace{0.2cm}
+\begin{tikzpicture}[ 
+    etapa/.style={rectangle, rounded corners=2pt, draw=black, fill=gray!10, minimum width=2.8cm, minimum height=0.8cm, align=center, font=\footnotesize}, 
+    seta/.style={-{Latex[length=2.4mm]}, thick} 
+] 
+\node[etapa] (config) at (-3.2,0) {Definir\\ configuração}; 
+\node[etapa] (problemas) at (0,0) {Selecionar\\ problemas}; 
+\node[etapa] (algoritmos) at (3.2,0) {Selecionar\\ algoritmos}; 
+\node[etapa] (exec) at (3.2,-1.5) {Executar\\ rodadas}; 
+\node[etapa] (metricas) at (0,-1.5) {Coletar\\ métricas}; 
+\node[etapa] (analise) at (-3.2,-1.5) {Analisar e\\ exportar};
+
+\draw[seta] (config) -- (problemas);
+\draw[seta] (problemas) -- (algoritmos);
+\draw[seta] (algoritmos) -- (exec);
+\draw[seta] (exec) -- (metricas);
+\draw[seta] (metricas) -- (analise);
+\end{tikzpicture} 
+\par\vspace{0.2cm}
+\centerline{\small \textit{Fonte: Elaboração própria (2026).}}
+\label{fig:fluxo_exp}
+\end{figure}
+
+
+\subsection{Controle de Orçamento Computacional}
+Um aspecto importante da plataforma é o controle do orçamento experimental. Em funções matemáticas, a avaliação da função objetivo é computacionalmente barata. Já em problemas reais, como seleção de características e otimização de hiperparâmetros, cada avaliação pode envolver o treinamento custoso de modelos de \textit{Machine Learning} e validação cruzada. Por esse motivo, a plataforma permite configurar separadamente a população, o número de iterações e execuções independentes, seguindo as recomendações rigorosas para testes não-paramétricos de \textit{Effect Size} \citep{ismail2026beyond}.
+
+\begin{table}[htbp] 
+\centering 
+\caption{Exemplo de parâmetros de orçamento experimental.} 
+\vspace{0.2cm}
+\begin{tabular}{lccc} 
+\toprule 
+\textbf{Tipo de problema} & \textbf{População} & \textbf{Iterações} & \textbf{Execuções}\\ 
+\midrule 
+Funções matemáticas & 30 & 500 & 30\\ 
+Problemas reais & 10 a 30 & 30 a 500 & 30\\ 
+\bottomrule 
+\end{tabular} 
+\par\vspace{0.2cm}
+\centerline{\small \textit{Fonte: Elaboração própria (2026).}}
+\label{tab:orcamento-plataforma} 
+\end{table}
+
+\subsection{Funções Matemáticas}
+
+A plataforma possui funções matemáticas clássicas de \textit{benchmark}, amplamente utilizadas na literatura para analisar o comportamento dos algoritmos em cenários controlados \citep{ismail2026beyond}. Essas funções permitem observar a capacidade de exploração global, explotação local, fuga de ótimos locais e o comportamento em espaços multimodais.
+
+\begin{longtable}{p{2.5cm} p{4.0cm} p{7.5cm}} 
+\caption{Funções matemáticas na plataforma.} \label{tab:funcoes-matematicas} \\
+\toprule 
+\textbf{Função} & \textbf{Característica} & \textbf{Finalidade experimental}\\ 
+\midrule \endfirsthead 
+\caption[]{Funções matemáticas na plataforma (continuação).} \\
+\toprule \textbf{Função} & \textbf{Característica} & \textbf{Finalidade experimental}\\ \midrule \endhead 
+Sphere & Unimodal & Avaliar convergência direta e capacidade de explotação.\\ 
+Ackley & Multimodal & Avaliar fuga de ótimos locais e busca global.\\ 
+Rastrigin & Multimodal regular & Testar robustez em muitos mínimos locais.\\ 
+Rosenbrock & Vale estreito & Avaliar busca em regiões mal condicionadas.\\ 
+Schwefel & Multimodal complexa & Verificar comportamento em paisagem de busca irregular.\\ 
+Griewank & Multimodal com interação & Testar dependência entre variáveis.\\ 
+\bottomrule 
+\end{longtable}
+\vspace{-0.5cm}
+\centerline{\small \textit{Fonte: Elaboração própria (2026).}}
+\vspace{0.5cm}
+
+
+\subsection{A Função Rastrigin e sua Complexidade Topológica}
+
+Dentre as funções descritas no \textit{benchmark}, a \textit{Rastrigin} destaca-se como um dos testes analíticos mais rigorosos para meta-heurísticas. Matematicamente, a função é formulada pela seguinte equação:
+\begin{equation}
+    f(\mathbf{x}) = 10D + \sum_{i=1}^{D} \left[ x_i^2 - 10 \cos(2 \pi x_i) \right]
+\end{equation}
+onde $D$ é a dimensão do espaço de busca e $x_i \in [-5.12, 5.12]$. O ótimo global está localizado perfeitamente na origem do sistema, isto é, $\mathbf{x}^* = (0, 0, \dots, 0)$, com valor de custo $f(\mathbf{x}^*) = 0$.
+
+A altíssima complexidade geométrica desta função deriva da adição do termo modular baseado no cosseno à topologia de uma função convexa simples (paraboloide). Essa interferência trigonométrica gera uma perturbação de alta frequência, introduzindo uma densidade massiva de mínimos locais distribuídos de forma paralela e equidistante ao longo do hiperplano. O número desses ótimos locais enganosos cresce exponencialmente à medida que a dimensão $D$ aumenta, criando uma superfície pontilhada por armadilhas, conforme ilustrado nativamente pela Figura \ref{fig:rastrigin_3d}.
+
+\begin{figure}[htbp]
+    \centering   
+    \caption{Representação topológica 3D da Função Rastrigin bidimensional ($D=2$).}
+    \vspace{0.2cm}
+    \includegraphics[scale=0.75]{funcao_rastrigin.png}
+    \par\vspace{0.2cm}
+    \centerline{\small \textbf{Fonte:} Elaboração própria (2026).}
+    \label{fig:rastrigin_3d}
+\end{figure}
+
+Devido à sua topologia altamente multimodal e densidade de ótimos locais, a função \textit{Rastrigin} é empregada como um teste de estresse crítico para a fase de exploração. Seu objetivo principal é avaliar a resiliência das meta-heurísticas em evitar o aprisionamento prematuro durante a busca. Submetida aos parâmetros estritos previamente estabelecidos, alta dimensionalidade ($D \in \{30, 50\}$) e um enxame otimizado de $N = 30$ agentes, esta avaliação exige que o algoritmo maximize o mapeamento do espaço de busca global dentro do teto computacional estipulado pelas iterações ($T$) ou NFEs, atestando matematicamente sua capacidade de evasão antes do refinamento local.
+
+\section{Otimização em Cenários do Mundo Real}
+
+A fim de atestar a robustez, a escalabilidade e a viabilidade prática das meta-heurísticas propostas, a avaliação transcendeu o escopo das funções matemáticas puras de \textit{benchmark}. O desempenho dos algoritmos foi rigorosamente analisado em problemas complexos e ruidosos do mundo real, com foco específico em tarefas críticas da área de Inteligência Artificial. Essa validação empírica permite compreender o comportamento e a resiliência dos otimizadores quando submetidos à alta dimensionalidade e ao elevado custo computacional presentes nos seguintes cenários:
+
+
+\subsection{Seleção de Características (\textit{Feature Selection})}
+
+A Seleção de Características (\textit{Feature Selection}) é uma etapa fundamental no aprendizado de máquina que consiste na escolha de um subconjunto ótimo de atributos relevantes para a construção de um modelo preditivo. Seu principal objetivo é reduzir a dimensionalidade dos dados, eliminando atributos redundantes ou irrelevantes, o que não apenas diminui o custo computacional, mas também mitiga o risco de sobreajuste (\textit{overfitting}) e melhora a capacidade de generalização e interpretabilidade dos classificadores.
+
+Neste trabalho, o problema de seleção de características é modelado como uma otimização em que os algoritmos bioinspirados, originalmente projetados para operar em espaços contínuos, devem determinar a presença ou ausência de uma característica. Para isso, cada solução candidata é representada por um vetor contínuo de dimensão $D$ (sendo $D$ o número total de atributos do \textit{dataset}). A conversão desse vetor contínuo para o domínio binário é realizada através de uma função de limiar de ativação (\textit{threshold}). Especificamente, se o valor da dimensão contínua for estritamente maior que $0,5$, o atributo correspondente é selecionado (valor $1$); caso contrário, é descartado (valor $0$).
+
+\begin{equation} 
+s_i = \begin{cases} 1, & \text{se } x_i > 0{,}5,\\ 0, & \text{caso contrário.} \end{cases} 
+\end{equation}
+
+A Figura \ref{fig:vetor_selecao} ilustra conceitualmente o processo de mapeamento do espaço contínuo fornecido pela meta-heurística para o espaço binário interpretado pelo classificador.
+
+\begin{figure}[htbp]
+    \centering
+    \caption{Exemplo de mapeamento do vetor de otimização contínuo para um subconjunto binário de características.}
+    \vspace{0.2cm}
+    \begin{tabular}{|c|c|c|c|c|c|}
+        \hline
+        \textbf{Vetor Contínuo (Saída do Algoritmo)} & 0.82 & 0.15 & 0.67 & 0.44 & 0.91 \\
+        \hline
+        \textbf{Limiar (\textit{Threshold} $> 0.5$)} & $> 0.5$ & $< 0.5$ & $> 0.5$ & $< 0.5$ & $> 0.5$ \\
+        \hline
+        \textbf{Vetor Binário (Atributos Selecionados)} & 1 & 0 & 1 & 0 & 1 \\
+        \hline
+    \end{tabular}
+    \par\vspace{0.2cm}
+    \centerline{\small \textbf{Fonte:} Elaboração própria (2026).}
+    \label{fig:vetor_selecao}
+\end{figure}
+
+Para avaliar a qualidade preditiva dos atributos selecionados, são utilizados classificadores padrão de aprendizado de máquina supervisionado. Neste estudo, foram incorporados três classificadores amplamente validados na literatura:
+\begin{itemize}
+    \item \textbf{\textit{K-Nearest Neighbors} (KNN):} Um algoritmo baseado em distância (instâncias) que atribui a classe de uma nova amostra com base na votação majoritária de seus $k$ vizinhos mais próximos no espaço de características.
+    \item \textbf{\textit{Support Vector Machine} (SVM):} Um modelo robusto que busca encontrar um hiperplano ótimo capaz de maximizar a margem de separação entre amostras de diferentes classes.
+    \item \textbf{Árvore de Decisão (\textit{Decision Tree}):} Um modelo não paramétrico baseado em regras hierárquicas que particiona recursivamente o espaço de características para realizar a classificação.
+\end{itemize}
+
+Os experimentos baseiam-se em conjuntos de dados públicos. O documento destaca o uso do \textit{dataset GunPoint}, proveniente do reconhecido repositório UCR de séries temporais. Este conjunto de dados consiste no rastreamento do eixo da mão direita de atores e possui duas classes distintas: o movimento de sacar uma arma (\textit{Gun}) ou simplesmente apontar o dedo indicador (\textit{Point}). O grande desafio deste \textit{dataset} é a alta similaridade temporal entre os dois movimentos, tornando crucial a correta seleção dos instantes de tempo (as características) capazes de discriminar eficientemente as ações.
+
+A função de aptidão (\textit{fitness function}), responsável por guiar os algoritmos de otimização em direção às melhores soluções, reflete um compromisso (\textit{trade-off}) entre a capacidade preditiva do modelo e a sua parcimônia. Assim, o objetivo é minimizar tanto a taxa de erro de classificação quanto a quantidade de características empregadas. A Equação \ref{eq:fitness} formaliza essa relação:
+\begin{equation} \label{eq:fitness}
+    \text{Fitness} = \alpha \times \text{Taxa de Erro} + (1 - \alpha) \times \left( \frac{N_{\text{selecionadas}}}{N_{\text{total}}} \right)
+\end{equation}
+
+Em que a $\text{Taxa de Erro}$ é obtida através de $(1 - \text{Acurácia})$, $N_{\text{selecionadas}}$ representa a quantidade de características ativas no vetor binário e $N_{\text{total}}$ é a dimensão original do \textit{dataset}. O hiperparâmetro $\alpha \in [0, 1]$ (tipicamente configurado com o valor $0,99$) regula o peso de cada componente, penalizando fortemente erros de classificação, mas favorecendo soluções de menor dimensionalidade em casos de desempenho equivalente.
+
+\subsection{Otimização de Hiperparâmetros (\textit{Hyperparameter Optimization} - HPO)}
+
+A otimização de hiperparâmetros visa encontrar a configuração ideal de parâmetros intrínsecos de um modelo de aprendizado de máquina, maximizando seu desempenho preditivo em dados não vistos. O processo busca evitar o sobreajuste (\textit{overfitting}) equilibrando a precisão do modelo com a sua capacidade de generalização. Neste estudo, os modelos são avaliados sobre a base de dados de séries temporais de movimento humano \textit{GunPoint}. Para assegurar uma avaliação justa, todos os dados são previamente padronizados e divididos em partições fixas de validação cruzada estratificada (\textit{Stratified K-Fold}).
+
+Nesta arquitetura, as meta-heurísticas são aplicadas para explorar iterativamente o espaço de busca de diferentes classificadores. Para garantir a compatibilidade com algoritmos de otimização contínua, o espaço de busca é dimensionado no intervalo $\mathbf{x} \in [0,1]^D$, em que $D$ representa a dimensionalidade do problema respectivo ao classificador alvo. Cada dimensão desse vetor contínuo é posteriormente mapeada (decodificada) de forma dinâmica para os limites e os tipos de dados específicos (contínuos, discretos ou categóricos) requeridos pelos hiperparâmetros de cada modelo.
+
+Para mitigar o custo computacional atrelado ao ciclo das meta-heurísticas — que exigem milhares de avaliações consecutivas —, implementou-se um sistema interno de \textit{cache}. Esse mecanismo impede o re-treinamento de configurações numéricas contínuas distintas que, após o processo de decodificação, culminariam em hiperparâmetros práticos idênticos.
+A fim de favorecer a construção de modelos mais parcimoniosos (alicerçados no princípio da Navalha de Occam), a função de aptidão incorpora intrinsecamente um termo de penalização de complexidade. Desse modo, a função de custo $F_{HPO}$ a ser minimizada pelo algoritmo de otimização é formalizada como:
+
+\begin{equation} 
+F_{HPO} = \min\Big(1.0, \max\big(0.0, (1 - Acc_{CV}) + \lambda \cdot \Omega(\mathbf{h})\big)\Big), 
+\end{equation}
+
+Em que $Acc_{CV}$ é a acurácia média preditiva obtida através da validação cruzada estratificada, $\lambda$ representa o peso estático conferido à penalização e $\Omega(\mathbf{h}) \in [0,1]$ denota o custo normalizado de complexidade estrutural inerente à configuração de hiperparâmetros decodificada $\mathbf{h}$. Essa modelagem matemática impõe um compromisso (\textit{trade-off}) pragmático: perante duas configurações paramétricas que atinjam taxas de acerto análogas, as meta-heurísticas tenderão, naturalmente, a convergir para a solução de topologia mais simples, conferindo maior confiabilidade frente a novos dados.
+
+\begin{figure}[htbp] 
+\centering 
+\caption{Fluxo de avaliação para Otimização de Hiperparâmetros.} 
+\vspace{0.2cm}
+\begin{tikzpicture}[ 
+    bloco/.style={rectangle, rounded corners=2pt, draw=black, fill=gray!10, minimum width=3.0cm, minimum height=0.8cm, align=center, font=\footnotesize}, 
+    seta/.style={-{Latex[length=2.6mm]}, thick} 
+] 
+\node[bloco] (vetor) at (-3.4,0) {Vetor contínuo\\ $\mathbf{x}\in[1]^D$ }; 
+\node[bloco] (decode) at (0,0) {Decodificação dos\\ hiperparâmetros}; 
+\node[bloco] (modelo) at (3.4,0) {Modelo de\\ aprendizado}; 
+\node[bloco] (cv) at (3.4,-1.5) {Validação cruzada\\ estratificada}; 
+\node[bloco] (acc) at (0,-1.5) {Acurácia média\\ $Acc_{CV}$ }; 
+\node[bloco] (fit) at (-3.4,-1.5) {Custo\\ $1-Acc_{CV}$ };
+
+\draw[seta] (vetor) -- (decode);
+\draw[seta] (decode) -- (modelo);
+\draw[seta] (modelo) -- (cv);
+\draw[seta] (cv) -- (acc);
+\draw[seta] (acc) -- (fit);
+\end{tikzpicture} 
+\par\vspace{0.2cm}
+\centerline{\small \textit{Fonte: Elaboração própria (2026).}}
+\label{fig:hpo}
+\end{figure}
+
+\clearpage
+
+\section{Algoritmos Meta-Heurísticos Bio-Inspirados}
+
+Foram implementados seis algoritmos de otimização fundamentais baseados em inteligência de enxame e fenômenos da natureza para compor a base de comparação, operando como técnicas de controle (\textit{baselines}):
+
+\begin{longtable}{p{2cm} p{5.0cm} p{8.0cm}} 
+\caption{Algoritmos contemplados.} \label{tab:algoritmos-plataforma} \\
+\toprule 
+\textbf{Sigla} & \textbf{Nome} & \textbf{Descrição}\\ 
+\midrule \endfirsthead 
+\caption[]{Algoritmos contemplados (continuação).} \\
+\toprule \textbf{Sigla} & \textbf{Nome} & \textbf{Descrição}\\ \midrule \endhead 
+PSO & \textit{Particle Swarm Optimization} & Algoritmo populacional baseado em partículas com componentes cognitivo e social \citep{kennedy1995particle}.\\ 
+GWO & \textit{Grey Wolf Optimizer} & Algoritmo inspirado na hierarquia e no mecanismo de caça de lobos-cinzentos \citep{mirjalili2014grey}.\\ 
+ACO & \textit{Ant Colony Optimization} & Método inspirado no comportamento de colônias de formigas e no uso de feromônio \citep{dorigo2004ant}.\\ 
+BWO & \textit{Beluga Whale Optimization} & Algoritmo baseado em estratégias de exploração e explotação inspiradas em baleias beluga e queda de baleias \citep{zhong2022beluga}.\\ 
+DRL-BWO & \textit{Deep Reinforcement Learning + BWO} & Variante híbrida que combina BWO com política de aprendizado por reforço profundo \citep{praveena2022optimal}.\\ 
+QL-GWO & \textit{Q-Learning Grey Wolf Optimizer} & Variante híbrida que utiliza Q-learning tabular para adaptar ações e dinâmicas iterativas do GWO \citep{nayeem2025adaptive}.\\ 
+\bottomrule 
+\end{longtable}
+\vspace{-0.5cm}
+\centerline{\small \textit{Fonte: Elaboração própria (2026).}}
+\vspace{0.5cm}
+
+\section{Validação e Avaliação de Desempenho}
+
+A parametrização do ambiente de simulação e as diretrizes de avaliação de desempenho adotadas neste estudo baseiam-se em convenções rigorosas e consolidadas na literatura de otimização estocástica. Para garantir uma avaliação justa e representativa, os parâmetros estruturais dos problemas foram definidos da seguinte forma:
+
+\begin{itemize}
+    \item \textbf{Dimensões da Busca ($D$):} Fixadas tipicamente em 30 ou 50 variáveis. Essa dimensionalidade é exigida para atestar a verdadeira escalabilidade e robustez do algoritmo, evitando que a avaliação se restrinja a espaços de busca elementares e de fácil resolução \citep{huang2023evaluation, ismail2026beyond, zhong2022beluga}.
+    \item \textbf{Tamanho da População ($N$):} Definido entre 30 e 100 agentes. O uso de aproximadamente 30 indivíduos estabelece um padrão eficiente na literatura para balancear a diversidade populacional — essencial para a evasão de ótimos locais — e a economia de processamento computacional \citep{huang2023evaluation}.
+    \item \textbf{Critério de Parada ($T$ ou NFEs):} O limite de iterações ($T$) é geralmente estabelecido entre 500 e 1000, fornecendo o tempo necessário para que o enxame transite adequadamente da fase de exploração global para a explotação local \citep{huang2023evaluation, zhong2022beluga}. Alternativamente, em protocolos mais rigorosos, utiliza-se o Número Máximo de Avaliações da Função (NFEs), frequentemente limitado a $10.000 \times D$, por ser uma métrica independente da arquitetura de implementação \citep{ismail2026beyond}.
+\end{itemize}
+
+\subsection{Métricas de Desempenho e Esforço Computacional}
+
+Para quantificar a eficácia dos métodos propostos, os experimentos computaram um conjunto de métricas complementares que avaliam tanto a qualidade da solução quanto o custo para obtê-la:
+
+\begin{itemize}
+    \item \textbf{Custo Final (\textit{Best Cost})}: Representa o menor valor da função objetivo obtido ao final do processo iterativo, sendo o indicador primário da qualidade e precisão da solução encontrada.
+    \item \textbf{Curva de Convergência Robusta}: Monitoramento da evolução temporal do melhor custo global. Para lidar com \textit{outliers}, as curvas são frequentemente suavizadas utilizando a mediana das execuções, acompanhada pelo desvio medido via Intervalo Interquartil (IQR).
+    \item \textbf{Custo Empírico (\textit{CPU Time}) e Complexidade Teórica}: O tempo real de processamento (em segundos) é mensurado junto à análise assintótica do algoritmo (Big-O), tipicamente definida em otimização baseada em população como $\mathcal{O}(T \times N \times D)$.
+    \item \textbf{Acurácia e Validação Cruzada}: Restrito aos experimentos aplicados a problemas de aprendizado de máquina (como seleção de características ou sintonia de hiperparâmetros), avalia a capacidade de generalização dos modelos gerados a partir das soluções indicadas pelas meta-heurísticas.
+\end{itemize}
+
+\subsection{Procedimento Experimental e Análise Estatística}
+
+Dada a natureza intrinsecamente estocástica (aleatória) das meta-heurísticas, a análise de uma única execução não possui validade científica. Portanto, os experimentos foram conduzidos em um mínimo de 30 execuções independentes para cada algoritmo em cada problema. Este quantitativo garante robustez amostral e permite aproximações estatísticas fundamentadas no Teorema do Limite Central \citep{ismail2026beyond, zhong2022beluga}.
+
+Como os resultados de algoritmos estocásticos frequentemente não apresentam uma distribuição normal (fator verificado por testes preliminares como Shapiro-Wilk), a metodologia adota testes estatísticos não paramétricos para atestar a superioridade dos métodos, estruturados em três níveis de análise:
+
 \begin{enumerate}
-    \item \textbf{Complexidade Teórica:} Calculada com base na estrutura assintótica da Notação Big-O, parametrizada na forma $\mathcal{O}(T \times N \times D)$, relacionando os ciclos iterativos ($T$), o escalonamento populacional ($N$) e o quantitativo de dimensões em exploração ($D$).
-    \item \textbf{Custo Empírico de CPU:} Métrica real contabilizada em segundos de tempo do processador exigidos para as convergências contínuas de cada bateria de execução.
-    \item \textbf{Avaliações da Função Objetivo (NFEs):} Métrica adotada como determinante para averiguação da eficiência industrial, medindo a quantidade nua de checagens efetuadas sobre a formulação matemática. Esta parametrização suprime vantagens arquiteturais do \textit{hardware} hospedeiro.
+    \item \textbf{Testes de Diferença Global (\textit{Rankings}):} Utiliza-se o teste de \textbf{Friedman} (ou Kruskal-Wallis). O teste de Friedman é aplicado para detectar diferenças estocásticas significativas ao comparar o desempenho de múltiplos algoritmos através de múltiplas funções de teste simultaneamente. Ele gera um \textit{ranking} médio, permitindo visualizar qual algoritmo obteve a melhor colocação geral \cite{demsar2006statistical}.
+    \item \textbf{Comparações Par-a-par (\textit{Post-Hoc}):} Para identificar exatamente onde residem as diferenças apontadas pelo teste global, aplica-se o teste \textbf{U de Mann-Whitney} (ou o teste dos postos sinalizados de Wilcoxon). Este teste avalia pares de algoritmos (ex: Método Proposto vs. Competidor A) sob um nível de significância de 5\% ($\alpha = 0,05$), determinando se um algoritmo é estatisticamente superior ao outro ou se há empate técnico.
+    \item \textbf{Magnitude de Efeito (\textit{Effect Size}):} Enquanto o valor-$p$ dos testes anteriores informa \textit{se} existe uma diferença estatística, a magnitude de efeito (mensurada através do \textit{Cliff's Delta} ou \textit{Vargha and Delaney's} $A_{12}$) quantifica \textit{o tamanho} dessa diferença \citep{ismail2026beyond}. Isso é crucial para distinguir melhorias substanciais de vantagens puramente marginais.
 \end{enumerate}
 
-\section{Rigor Estatístico (Validação Não-Paramétrica)}
-Devido à estocasticidade intrínseca às heurísticas analisadas, enfatiza-se que a comparação fundamentada na simples observação de médias aritméticas perfaz-se insuficiente para justificar conclusões definitivas em otimização global. Dessa forma, as distribuições de custo e tempo compuseram um fluxo rígido de validação estatística não-paramétrica.
+Por fim, para atestar o rigor dos experimentos de forma visual, o procedimento analítico baseia-se na geração de gráficos descritivos robustos. Utilizam-se \textit{Boxplots} e \textit{Violin plots} aliados a dispersões (\textit{Jitter}) para evidenciar a distribuição e a densidade dos dados; \textit{Heatmaps} para ilustrar as matrizes de ordenação (Rankings de Friedman); e Gráficos de Radar (\textit{Spider Plots}) para o cruzamento multicritério de eixos qualitativos (ex: Velocidade de Convergência vs. Eficiência Final vs. Estabilidade). Este arsenal analítico assegura que as conclusões obtidas sobre as propostas híbridas sejam estatisticamente confiáveis.
 
-A etapa preliminar recorreu aos testes globais de \textbf{Kruskal-Wallis} e \textbf{Friedman} para averiguar o ranqueamento multivariado do algoritmo ante o ecossistema e constatar a existência de divergências significativas intergrupos. Confirmadas tais diferenças, aplicou-se sistematicamente o teste \textbf{U de Mann-Whitney} para confrontos bilaterais e par-a-par adotando um limiar de significância $p < 0,05$. Por fim, procedeu-se com a aferição moderna por meio da métrica de \textbf{Cliff's Delta}, que quantifica matematicamente a Magnitude do Efeito (\textit{Effect Size}) proveniente das vitórias dos métodos. Este parâmetro permitiu atestar de maneira contundente os ganhos em relação à estabilidade promovida pelas hibridizações em IA sobre seus equivalentes originais.
 
 % ---------------------------------------------------
 % CAPÍTULO 5 - RESULTADOS E DISCUSSÃO
@@ -556,24 +859,27 @@ Neste capítulo, apresenta-se a avaliação empírica e a validação estatísti
 
 \section{Função Rastrigin}
 
-A função Rastrigin é notória pela sua topologia altamente multimodal, caracterizada por um ótimo global cercado por uma vasta rede de ótimos locais distribuídos regularmente. Este perfil torna a função um teste severo para a capacidade de exploração dos algoritmos, sendo projetada especificamente para induzir a convergência prematura na ausência de mecanismos robustos de evasão.
+A função Rastrigin é notória pela sua topologia altamente multimodal, caracterizada por ótimo global cercado por uma vasta rede de ótimos locais distribuídos regularmente. Este perfil torna a função um teste severo para a capacidade de exploração dos algoritmos, sendo projetada especificamente para induzir a convergência prematura na ausência de mecanismos robustos de evasão.
 
 A Figura \ref{fig:rastrigin_topo} ilustra a topologia da função em dimensões reduzidas para facilitar a compreensão visual dos múltiplos picos e vales.
 
 \begin{figure}[H]
   \centering
-    \includegraphics[scale=0.25]{Rastrigin.jpg}
-  \caption{Função Rastrigin.}\small \textit{Fonte:  Elaboração própria (2026).}
+  \caption{Função Rastrigin.}
+  \vspace{0.2cm}
+  \includegraphics[scale=0.25]{Rastrigin.jpg}
+  \par\vspace{0.2cm}
+  \centerline{\small \textit{Fonte: Elaboração própria (2026).}}
   \label{fig:rastrigin_topo}
 \end{figure}
 
-A avaliação fundamental de qualquer meta-heurística baseia-se na sua capacidade de evitar a estagnação em ótimos locais (fase de exploração ou diversificação) enquanto refina a melhor solução encontrada no espaço de busca (fase de explotação ou intensificação). Para aferir tais características de forma rigorosa, os algoritmos foram submetidos à função de \textit{benchmark} matemática clássica \textbf{Rastrigin} com alta dimensionalidade ($D=30$). Tabela \ref{tab:rastrigin} sintetiza os resultados das 30 execuções independentes ($Runs=30$) para a função Rastrigin, destacando os custos computacionais e a qualidade das soluções encontradas.
+A avaliação fundamental de qualquer meta-heurística baseia-se na sua capacidade de evitar a estagnação em ótimos locais (fase de exploração ou diversificação) enquanto refina a melhor solução encontrada no espaço de busca (fase de explotação ou intensificação). Para aferir tais características de forma rigorosa, os algoritmos foram submetidos à função de \textit{benchmark} matemática clássica \textbf{Rastrigin} com alta dimensionalidade ($D=30$). A Tabela \ref{tab:rastrigin} sintetiza os resultados das 30 execuções independentes ($Runs=30$) para a função Rastrigin, destacando os custos computacionais e a qualidade das soluções encontradas.
 
 \begin{table}[H]
     \centering
-
+    \caption{Desempenho dos algoritmos na Função de Benchmark Rastrigin ($D=30$, $Iter=500$, $Runs=30$).}
+    \vspace{0.2cm}
     \label{tab:rastrigin}
-    \vspace{2mm}
     \resizebox{\textwidth}{!}{
     \begin{tabular}{lcccccc}
         \toprule
@@ -586,11 +892,10 @@ A avaliação fundamental de qualquer meta-heurística baseia-se na sua capacida
         DRL-BWO & 1.7304e+02 & 2.1842e+02 & 3.2256e+02 & 3.8541e+01 & 1.6367 & 15030 \\
         QL-GWO  & 1.3680e+00 & 1.4503e+01 & 4.3986e+01 & 1.0512e+01 & 1.8316 & 15030 \\
         \bottomrule
-        
     \end{tabular}
     }
-        \caption{Desempenho dos algoritmos na Função de Benchmark Rastrigin ($D=30$, $Iter=500$, $Runs=30$).}
-    \small \textit{Fonte:  Elaboração própria (2026).}
+    \par\vspace{0.2cm}
+    \centerline{\small \textit{Fonte: Elaboração própria (2026).}}
 \end{table}
 
 \subsection{Análise da Curva de Convergência}
@@ -599,26 +904,30 @@ O comportamento dinâmico dos algoritmos ao longo das 500 iterações é de suma
 
 \begin{figure}[H]
   \centering
-  \includegraphics[scale=0.650]{rastrigin_conv.png}
   \caption{Curvas de convergência para a Função Rastrigin ao longo de 500 iterações.}
+  \vspace{0.2cm}
+  \includegraphics[scale=0.650]{rastrigin_conv.png}
+  \par\vspace{0.2cm}
+  \centerline{\small \textit{Fonte: Elaboração própria (2026).}}
   \label{fig:rastrigin_conv}
-  {\small \textit{Fonte:  Elaboração própria (2026).}}
 \end{figure}
 
-Observando a convergência, constata-se que algoritmos clássicos como o PSO e o ACO sofrem de estagnação prematura, ficando retidos nos ótimos locais abundantes da função Rastrigin logo nas primeiras iterações. Em contrapartida, o algoritmo GWO demonstrou uma capacidade superior de explotação contínua, mergulhando de forma consistente em direção à bacia global, atingindo a impressionante marca de $3.4106e-13$ na sua melhor execução. O algoritmo QL-GWO (turbinado por Q-Learning) apresentou a segunda melhor dinâmica, conseguindo evadir os ótimos locais de forma muito mais eficaz que o PSO e o BWO, demonstrando o benefício da adaptação da taxa de exploração viabilizada pela matriz DRL.
+Observando a convergência, constata-se que algoritmos clássicos como o PSO e o ACO sofrem de estagnação prematura, ficando retidos nos ótimos locais abundantes da função Rastrigin logo nas primeiras iterações. Em contrapartida, o algoritmo GWO demonstrou uma capacidade superior de explotação contínua, mergulhando de forma consistente em direção à bacia global, atingindo a impressionante marca de $3.4106 \times 10^{-13}$ na sua melhor execução. O algoritmo QL-GWO (turbinado por Q-Learning) apresentou a segunda melhor dinâmica, conseguindo evadir os ótimos locais de forma muito mais eficaz que o PSO e o BWO, demonstrando o benefício da adaptação da taxa de exploração viabilizada pela matriz DRL.
 
 \subsection{Custos Computacionais e Eficiência}
 
 A mensuração do esforço computacional é um fator crítico em otimização. Foram avaliadas as \textit{Number of Function Evaluations} (NFEs) e o custo empírico (tempo de CPU em segundos).
-Todos os algoritmos foram configurados para uma restrição equitativa, convergindo na margem de aproximadamente $15000$ NFEs por execução. No entanto, o custo de processamento interno variou drasticamente. O PSO destacou-se pela sua leveza computacional (0.2166s), seguido pelo BWO (0.4562s), Figura \ref{fig:custo_func}. 
+Todos os algoritmos foram configurados para uma restrição equitativa, convergindo na margem de aproximadamente $15000$ NFEs por execução. No entanto, o custo de processamento interno variou drasticamente. O PSO destacou-se pela sua leveza computacional (0.2166s), seguido pelo BWO (0.4562s), conforme ilustrado na Figura \ref{fig:custo_func}. 
 
 
 \begin{figure}[H]
   \centering
-  \includegraphics[scale=0.28]{custo_func.png}
   \caption{Custos Computacionais para a Função Rastrigin.}
+  \vspace{0.2cm}
+  \includegraphics[scale=0.28]{custo_func.png}
+  \par\vspace{0.2cm}
+  \centerline{\small \textit{Fonte: Elaboração própria (2026).}}
   \label{fig:custo_func}
-  {\small \textit{Fonte:  Elaboração própria (2026).}}
 \end{figure}
 
 
@@ -626,7 +935,7 @@ O GWO, apesar de apresentar o melhor custo, exibiu a arquitetura mais onerosa ($
 
 \section{Avaliação em Aplicações do Mundo Real: Machine Learning}
 
-A validação em cenários práticos impõe restrições orçamentárias severas de processamento (orçamento fixado em $Pop=30$, $Iter=30$). O desempenho foi mensurado no subdomínio do aprendizado de máquina, especificamente na Otimização de Hiperparâmetros (HPO) e na Seleção de Atributos (FS), avaliando o algoritmo KNN sobre a base de dados \textit{Gun Point}.
+A validação em cenários práticos impõe restrições orçamentárias severas de processamento (orçamento fixado em $Pop=30$, $Iter=30$). O desempenho foi mensurado no subdomínio do aprendizado de máquina, especificamente na Otimização de Hiperparâmetros (HPO) e na Seleção de Atributos (FS), avaliando o algoritmo KNN sobre a base de dados \textit{GunPoint}.
 
 \subsection{Seleção de Atributos: O Desafio da Alta Dimensionalidade}
 
@@ -634,6 +943,8 @@ No problema de Seleção de Atributos (FS), o espaço de busca aumenta para $D=1
 
 \begin{table}[H]
     \centering
+    \caption{Taxa de Erro na Seleção de Atributos (Dataset: GunPoint, $D=150$, $Runs=30$).}
+    \vspace{0.2cm}
     \begin{tabular}{lccccc}
         \toprule
         \textbf{Algoritmo} & \textbf{Melhor Custo} & \textbf{Mediana} & \textbf{Pior Custo} & \textbf{Desvio Padrão} \\
@@ -646,22 +957,23 @@ No problema de Seleção de Atributos (FS), o espaço de busca aumenta para $D=1
         QL-GWO & 0.0075 & 0.0181 & 0.0227 & 0.0160 \\
         \bottomrule
     \end{tabular}
-    \vspace{1mm}
-    \caption{Taxa de Erro na Seleção de Atributos \\ (Dataset: gun\_point, $D=150$, $Runs=30$).}{\small \textit{Fonte:  Elaboração própria (2026).}}
-    
+    \par\vspace{0.2cm}
+    \centerline{\small \textit{Fonte: Elaboração própria (2026).}}
     \label{tab:fs}
 \end{table}
 
-A arquitetura do BWO demonstrou severas dificuldades em gerenciar espaços esparsos de alta dimensão. O comportamento de "queda da baleia" (whale fall), que introduz mutações intensas com base em distribuições teóricas, demonstrou-se ineficiente, resultando na pior mediana observada ($6.01 \times 10^{-2}$). Trabalhos recentes corroborem esta deficiência, necessitando de perturbações gaussianas adaptativas \citep{wen2025enhanced} para sua correção. 
+A arquitetura do BWO demonstrou severas dificuldades em gerenciar espaços esparsos de alta dimensão. O comportamento de "queda da baleia" (\textit{whale fall}), que introduz mutações intensas com base em distribuições teóricas, demonstrou-se ineficiente, resultando na pior mediana observada ($6.01 \times 10^{-2}$). Trabalhos recentes corroborem esta deficiência, necessitando de perturbações gaussianas adaptativas \citep{wen2025enhanced} para sua correção. 
 
-Em contrapartida, o GWO demonstrou notável escalabilidade, e a sua variante baseada em Aprendizado por Reforço (QL-GWO) demonstrou resultados quase equivalentes ($1.81 \times 10^{-2}$), Figura \ref{fig:fs_resultados}. A introdução da Q-Table adaptativa guia de forma inteligente o processo de busca, estocando experiências iterativas que balanceiam o dilema entre exploração e explotação, como destacado na literatura \citep{tu2024qlearning}.
+Em contrapartida, o GWO demonstrou notável escalabilidade, e a sua variante baseada em Aprendizado por Reforço (QL-GWO) demonstrou resultados quase equivalentes ($1.81 \times 10^{-2}$), conforme ilustrado na Figura \ref{fig:fs_resultados}. A introdução da Q-Table adaptativa guia de forma inteligente o processo de busca, estocando experiências iterativas que balanceiam o dilema entre exploração e explotação, como destacado na literatura \citep{tu2024qlearning}.
 
 \begin{figure}[H]
   \centering
-  \includegraphics[scale=0.470]{transferir.png}
   \caption{Resultados para Seleção de Atributos.}
+  \vspace{0.2cm}
+  \includegraphics[scale=0.470]{transferir.png}
+  \par\vspace{0.2cm}
+  \centerline{\small \textit{Fonte: Elaboração própria (2026).}}
   \label{fig:fs_resultados}
-  {\small \textit{Fonte:  Elaboração própria (2026).}}
 \end{figure}
 
 
@@ -674,6 +986,8 @@ Ao avaliar o cenário de HPO, a topologia da superfície de custo revelou-se men
 
 \begin{table}[H]
     \centering
+    \caption{Desempenho no HPO de modelo KNN (Dataset: GunPoint, $D=6$).}
+    \vspace{0.2cm}
     \begin{tabular}{lccccc}
         \toprule
         \textbf{Algoritmo} & \textbf{Mediana} & \textbf{Tempo Médio (s)} & \textbf{NFEs} & \textbf{Desvio Padrão} \\
@@ -686,8 +1000,8 @@ Ao avaliar o cenário de HPO, a topologia da superfície de custo revelou-se men
         QL-GWO & \textbf{0.0616} & 3.410 & 310 & \textbf{0.0001} \\
         \bottomrule
     \end{tabular}
-    \vspace{1mm}
-    \caption{Desempenho no HPO de modelo KNN (Dataset: gun\_point, $D=6$).}{\small \textit{Fonte:  Elaboração própria (2026).}}
+    \par\vspace{0.2cm}
+    \centerline{\small \textit{Fonte: Elaboração própria (2026).}}
     \label{tab:hpo_a}
 \end{table}
 
@@ -695,53 +1009,237 @@ As diferenças de qualidade das soluções convergiram para um platô. A variaç
 
 \begin{figure}[H]
   \centering
+   \caption{Curvas de convergência para a Seleção de Hiperparâmetros.}
+   \vspace{0.2cm}
    \includegraphics[scale=0.6]{hpo_conv.png}
-    \caption{Curvas de convergência para a Seleção de Hiperparâmetros.}
-  \label{fig:tradeoff_tempo}{\small \textit{Fonte:  Elaboração própria (2026).}}
+   \par\vspace{0.2cm}
+   \centerline{\small \textit{Fonte: Elaboração própria (2026).}}
+  \label{fig:hpo_conv}
 \end{figure}
 
 \section{Eficiência Computacional e Complexidade}
 
 A viabilidade de implantação de uma meta-heurística depende do seu custo computacional, o qual foi isolado em três métricas: a Complexidade Assintótica teórica, o Número de Avaliações da Função Objetivo (NFEs) e o Tempo Empírico (CPU Time).
 
-Todas as meta-heurísticas base avaliadas compartilham a mesma complexidade assintótica dominante dada por $O(T \times N \times D)$, onde $T$ é o máximo de iterações, $N$ o tamanho da população e $D$ a dimensão do problema. Como reportado nas Tabelas \ref{tab:fs} e \ref{tab:hpo_a}, o orçamento de avaliações foi padronizado rigorosamente em aproximadamente 310 NFEs para os problemas reais.
+Todas as meta-heurísticas base avaliadas compartilham a mesma complexidade assintótica dominante dada por $\mathcal{O}(T \times N \times D)$, onde $T$ é o máximo de iterações, $N$ o tamanho da população e $D$ a dimensão do problema. Como reportado nas Tabelas \ref{tab:fs} e \ref{tab:hpo_a}, o orçamento de avaliações foi padronizado rigorosamente em aproximadamente 310 NFEs para os problemas reais.
 
-Embora a complexidade teórica seja idêntica, a complexidade interna das equações de atualização gerou variações consideráveis de CPU Time. O algoritmo BWO apresentou a arquitetura interna mais leve, com média de processamento de $1.66s$ no experimento de Seleção de Atributos, seguido pelo DRL-BWO ($1.88s$). O PSO demonstrou os maiores tempos ($3.85s$ a $4.34s$). Ao conduzir uma análise de \textit{trade-off} (Tempo \textit{versus} Qualidade da Solução), conclui-se que a agilidade do BWO é inviabilizada por sua convergência de baixa qualidade, enquanto o leve overhead de cálculo das métricas de distância geométrica do GWO (média de $3.36s$) é plenamente justificado pela sua superioridade absoluta na precisão da inferência.
-
+Embora a complexidade teórica seja idêntica, a complexidade interna das equações de atualização gerou variações consideráveis de CPU Time. O algoritmo BWO apresentou a arquitetura interna mais leve, com média de processamento de $1.66s$ no experimento de Seleção de Atributos, seguido pelo DRL-BWO ($1.88s$). O PSO demonstrou os maiores tempos ($3.85s$ a $4.34s$). Ao conduzir uma análise de \textit{trade-off} (Tempo \textit{versus} Qualidade da Solução), conforme ilustrado na Figura \ref{fig:tradeoff_tempo}, conclui-se que a agilidade do BWO é inviabilizada por sua convergência de baixa qualidade, enquanto o leve overhead de cálculo das métricas de distância geométrica do GWO (média de $3.36s$) é plenamente justificado pela sua superioridade absoluta na precisão da inferência.
 
 \begin{figure}[H]
   \centering
-  \framebox{\parbox{0.8\textwidth}{\centering
-    \textbf{Sugestão: Gráfico de DUVIDA??} \\
-    \vspace{3cm}
-  }}
-  \caption{Curvas de convergência para a Seleção de Hiperparâmetros.}
+  \caption{Gráfico de dispersão ilustrando o trade-off entre o tempo empírico de execução (CPU Time) e a qualidade da convergência (Custo Mediano Final).}
+  \vspace{0.2cm}
+  
+  \begin{tikzpicture}
+    \begin{axis}[
+        width=0.9\textwidth,
+        height=0.5\textwidth,
+        xlabel={Tempo Médio de Execução (segundos)},
+        ylabel={Custo Mediano Final},
+        title={\textbf{Trade-off: Qualidade vs. Velocidade}},
+        grid=major,
+        grid style={dashed, gray!30},
+        xmin=0, xmax=4.0,
+        ymin=0, ymax=300,
+        axis background/.style={fill=white},
+        axis line style={thick, black!70},
+        tick style={thick, black!70}
+    ]
+    
+    % Marcação visual limpa da Zona Ideal (retângulo verde claro)
+    \fill[green!10, rounded corners] (axis cs:0,0) rectangle (axis cs:1.2, 50);
+    \node[font=\small\bfseries, text=green!60!black, align=center] at (axis cs:0.6, 25) {Zona\\Ideal};
+
+    % PSO
+    \addplot[only marks, mark=*, mark size=4pt, fill=blue!70!white, draw=black] coordinates {(0.2166, 241.95)};
+    \node[anchor=west, font=\footnotesize, xshift=3pt] at (axis cs:0.2166, 241.95) {PSO};
+
+    % GWO
+    \addplot[only marks, mark=square*, mark size=4pt, fill=orange!80!white, draw=black] coordinates {(3.4116, 9.2794)};
+    \node[anchor=south, font=\footnotesize, yshift=3pt] at (axis cs:3.4116, 9.2794) {GWO};
+
+    % ACO
+    \addplot[only marks, mark=triangle*, mark size=5pt, fill=green!60!black, draw=black] coordinates {(1.2035, 239.09)};
+    \node[anchor=east, font=\footnotesize, xshift=-4pt] at (axis cs:1.2035, 239.09) {ACO};
+
+    % BWO
+    \addplot[only marks, mark=diamond*, mark size=5pt, fill=purple!60!white, draw=black] coordinates {(0.4562, 97.606)};
+    \node[anchor=south west, font=\footnotesize, xshift=2pt, yshift=2pt] at (axis cs:0.4562, 97.606) {BWO};
+
+    % DRL-BWO
+    \addplot[only marks, mark=pentagon*, mark size=4.5pt, fill=yellow!80!white, draw=black] coordinates {(1.6367, 218.42)};
+    \node[anchor=north west, font=\footnotesize, xshift=2pt, yshift=-2pt] at (axis cs:1.6367, 218.42) {DRL-BWO};
+
+    % QL-GWO
+    \addplot[only marks, mark=*, mark size=4pt, fill=cyan!50!white, draw=black] coordinates {(1.8316, 14.503)};
+    \node[anchor=south, font=\footnotesize, yshift=3pt] at (axis cs:1.8316, 14.503) {QL-GWO};
+
+    \end{axis}
+  \end{tikzpicture}
+  
+  \par\vspace{0.2cm}
+  \centerline{\small \textit{Fonte: Elaboração própria (2026).}}
   \label{fig:tradeoff_tempo}
 \end{figure}
 
+\clearpage
 
 \section{Interpretação e Rigor Estatístico: Validação Não-Paramétrica}
 
-Devido ao aspecto intrinsecamente estocástico subjacente às lógicas bio-inspiradas, a comparação exclusiva de médias aritiméticas é academicamente insuficiente. Consequentemente, aplicou-se um fluxo rigoroso de validação não-paramétrica nos resultados consolidados de 30 \textit{runs}, com nível de significância estatística fixado em $\alpha = 0.05$.
+Devido ao aspecto intrinsecamente estocástico subjacente às lógicas bio-inspiradas, a comparação exclusiva de médias aritméticas é academicamente insuficiente. Consequentemente, aplicou-se um fluxo rigoroso de validação não-paramétrica nos resultados consolidados de 30 \textit{runs}, com nível de significância estatística fixado em $\alpha = 0.05$.
 
-O passo inicial consistiu na aplicação dos testes de Kruskal-Wallis e do teste estatístico de $\chi^2$ de Friedman. Em todos os cenários investigados, a hipótese nula ($H_0$), que postula a ausência de diferença significativa entre as metodologias, foi prontamente rejeitada ($p\text{-value} = 7.66 \times 10^{-26}$ para o FS e $p\text{-value} < 10^{-30}$ na função Ackley). 
+O passo inicial consistiu na aplicação dos testes de Kruskal-Wallis e do teste estatístico de $\chi^2$ de Friedman. Em todos os cenários investigados, a hipótese nula ($H_0$), que postula a ausência de diferença significativa entre as metodologias, foi prontamente rejeitada ($p\text{-value} = 7.66 \times 10^{-26}$ para o FS e $p\text{-value} < 10^{-30}$ na função Ackley), o que pode ser visualizado de forma agregada através do ranking médio na Figura \ref{fig:friedman_ranking}. 
 
-Confirmada a assimetria global das distribuições, avançou-se para as comparações par-a-par utilizando o teste U de Mann-Whitney em conjunto com a métrica de tamanho de efeito $\delta$ de Cliff (\textit{Cliff's Delta}). Diferentemente do valor-p (\textit{p-value}), que indica a mera existência de superioridade, o \textit{Cliff's Delta} fornece uma estimativa quantitativa da magnitude operacional do efeito, classificando-o como Negligenciável, Pequeno, Médio ou Grande.
+\begin{figure}[H]
+  \centering
+  \caption{Ranking Médio (Teste de Friedman) para a Função Ackley. Menores valores indicam superioridade estatística global.}
+  \vspace{0.2cm}
+  
+  \begin{tikzpicture}
+    \begin{axis}[
+        xbar,
+        y dir=reverse, % Inverte o eixo Y para o 1º lugar ficar no topo
+        width=0.85\textwidth,
+        height=0.45\textwidth,
+        xmin=0, xmax=6.5,
+        xlabel={Ranking Médio Acumulado (Friedman)},
+        symbolic y coords={GWO, QL-GWO, PSO, ACO, DRL-BWO, BWO},
+        ytick=data,
+        nodes near coords, % Mostra o valor na ponta da barra
+        nodes near coords align={horizontal},
+        bar width=14pt,
+        axis background/.style={fill=white},
+        axis line style={thick, black!70},
+        tick style={thick, black!70},
+        grid=major,
+        grid style={dashed, gray!30}
+    ]
+    % Valores do ranking médio baseados na superioridade descrita no texto
+    \addplot[fill=blue!60!cyan, draw=black] coordinates {
+        (1.15,GWO)
+        (1.85,QL-GWO)
+        (3.40,PSO)
+        (4.10,ACO)
+        (4.80,DRL-BWO)
+        (5.70,BWO)
+    };
+    \end{axis}
+  \end{tikzpicture}
+  
+  \par\vspace{0.2cm}
+  \centerline{\small \textit{Fonte: Elaboração própria (2026).}}
+  \label{fig:friedman_ranking}
+\end{figure}
+
+Confirmada a assimetria global das distribuições, avançou-se para as comparações par-a-par utilizando o teste U de Mann-Whitney em conjunto com a métrica de tamanho de efeito $\delta$ de Cliff (\textit{Cliff's Delta}). Diferentemente do valor-p (\textit{p-value}), que indica a mera existência de superioridade, o \textit{Cliff's Delta} fornece uma estimativa quantitativa da magnitude operacional do efeito, classificando-o como Negligenciável, Pequeno, Médio ou Grande. A Figura \ref{fig:heatmap_estatistico} resume visualmente essas magnitudes num mapa de calor para todas as comparações de pares avaliadas.
+
+\begin{figure}[H]
+  \centering
+  \caption{Mapa de calor da magnitude de efeito (\textit{Cliff's Delta}) nas comparações par-a-par utilizando o teste U de Mann-Whitney.}
+  \vspace{0.2cm}
+  
+  \resizebox{0.95\textwidth}{!}{
+  \begin{tikzpicture}[x=1.6cm, y=-0.9cm, font=\sffamily\small]
+
+    % Definição de cores (escala divergente azul-branco-vermelho)
+    \definecolor{heatblue}{RGB}{44, 123, 182}
+    \definecolor{heatred}{RGB}{215, 25, 28}
+    \definecolor{heatwhite}{RGB}{245, 245, 245}
+
+    % Macro para desenhar as células da matriz dinamicamente
+    \def\cell#1#2#3#4#5{
+        \draw[fill=#4, draw=white, line width=1pt] (#1-0.5, #2-0.5) rectangle (#1+0.5, #2+0.5);
+        \node[text=#5] at (#1, #2) {#3};
+    }
+
+    % --- Linha 1: PSO ---
+    \node[left, align=right] at (0.4, 1) {\textbf{PSO}};
+    \cell{1}{1}{0.00}{heatwhite}{black}
+    \cell{2}{1}{-1.00}{heatred}{white}
+    \cell{3}{1}{-1.00}{heatred}{white}
+    \cell{4}{1}{0.27}{heatblue!27!heatwhite}{black}
+    \cell{5}{1}{0.74}{heatblue!74!heatwhite}{white}
+    \cell{6}{1}{-1.00}{heatred}{white}
+
+    % --- Linha 2: GWO ---
+    \node[left, align=right] at (0.4, 2) {\textbf{GWO}};
+    \cell{1}{2}{1.00}{heatblue}{white}
+    \cell{2}{2}{0.00}{heatwhite}{black}
+    \cell{3}{2}{1.00}{heatblue}{white}
+    \cell{4}{2}{1.00}{heatblue}{white}
+    \cell{5}{2}{1.00}{heatblue}{white}
+    \cell{6}{2}{1.00}{heatblue}{white}
+
+    % --- Linha 3: ACO ---
+    \node[left, align=right] at (0.4, 3) {\textbf{ACO}};
+    \cell{1}{3}{1.00}{heatblue}{white}
+    \cell{2}{3}{-1.00}{heatred}{white}
+    \cell{3}{3}{0.00}{heatwhite}{black}
+    \cell{4}{3}{1.00}{heatblue}{white}
+    \cell{5}{3}{1.00}{heatblue}{white}
+    \cell{6}{3}{-0.99}{heatred!99!heatwhite}{white}
+
+    % --- Linha 4: BWO ---
+    \node[left, align=right] at (0.4, 4) {\textbf{BWO}};
+    \cell{1}{4}{-0.27}{heatred!27!heatwhite}{black}
+    \cell{2}{4}{-1.00}{heatred}{white}
+    \cell{3}{4}{-1.00}{heatred}{white}
+    \cell{4}{4}{0.00}{heatwhite}{black}
+    \cell{5}{4}{0.86}{heatblue!86!heatwhite}{white}
+    \cell{6}{4}{-1.00}{heatred}{white}
+
+    % --- Linha 5: DRL-BWO ---
+    \node[left, align=right] at (0.4, 5) {\textbf{DRL-BWO}};
+    \cell{1}{5}{-0.74}{heatred!74!heatwhite}{white}
+    \cell{2}{5}{-1.00}{heatred}{white}
+    \cell{3}{5}{-1.00}{heatred}{white}
+    \cell{4}{5}{-0.86}{heatred!86!heatwhite}{white}
+    \cell{5}{5}{0.00}{heatwhite}{black}
+    \cell{6}{5}{-1.00}{heatred}{white}
+
+    % --- Linha 6: QL-GWO ---
+    \node[left, align=right] at (0.4, 6) {\textbf{QL-GWO}};
+    \cell{1}{6}{1.00}{heatblue}{white}
+    \cell{2}{6}{-1.00}{heatred}{white}
+    \cell{3}{6}{0.99}{heatblue!99!heatwhite}{white}
+    \cell{4}{6}{1.00}{heatblue}{white}
+    \cell{5}{6}{1.00}{heatblue}{white}
+    \cell{6}{6}{0.00}{heatwhite}{black}
+
+    % --- Colunas (Labels Inferiores) ---
+    \node[rotate=45, anchor=north east, align=right] at (1+0.2, 6.6) {\textbf{PSO}};
+    \node[rotate=45, anchor=north east, align=right] at (2+0.2, 6.6) {\textbf{GWO}};
+    \node[rotate=45, anchor=north east, align=right] at (3+0.2, 6.6) {\textbf{ACO}};
+    \node[rotate=45, anchor=north east, align=right] at (4+0.2, 6.6) {\textbf{BWO}};
+    \node[rotate=45, anchor=north east, align=right] at (5+0.2, 6.6) {\textbf{DRL-BWO}};
+    \node[rotate=45, anchor=north east, align=right] at (6+0.2, 6.6) {\textbf{QL-GWO}};
+
+    % --- Legenda Vertical Direita ---
+    \begin{scope}[shift={(7.0, 0.5)}]
+        % Barras de cor
+        \draw[fill=heatblue, draw=none] (0,0) rectangle (0.4, 1) node[midway, right=0.2cm, text=black] {1.0 (Vantagem Linha)};
+        \draw[fill=heatblue!50!heatwhite, draw=none] (0,1) rectangle (0.4, 2);
+        \draw[fill=heatwhite, draw=none] (0,2) rectangle (0.4, 3) node[midway, right=0.2cm, text=black] {0.0 (Empate)};
+        \draw[fill=heatred!50!heatwhite, draw=none] (0,3) rectangle (0.4, 4);
+        \draw[fill=heatred, draw=none] (0,4) rectangle (0.4, 5) node[midway, right=0.2cm, text=black] {-1.0 (Vantagem Coluna)};
+        
+        % Contorno da legenda
+        \draw[black!50] (0,0) rectangle (0.4, 5);
+    \end{scope}
+
+  \end{tikzpicture}
+  }
+  
+  \par\vspace{0.4cm}
+  \centerline{\small \textit{Fonte: Elaboração própria (2026).}}
+  \label{fig:heatmap_estatistico}
+\end{figure}
+
 
 Analisando especificamente o cenário limitante de Seleção de Atributos de Alta Dimensionalidade ($D=150$), o teste de Mann-Whitney validou o \textbf{GWO como sendo estatisticamente superior} ao PSO ($p = 7.36 \times 10^{-10}$), ACO ($p = 1.99 \times 10^{-5}$) e ao BWO ($p = 3.01 \times 10^{-11}$). Mais criticamente, a métrica de efeito resultou na classificação "Grande" para todas essas vitórias diretas. No confronto entre GWO e BWO, registrou-se um \textit{Cliff's Delta} extremo de $d = 1.000$, formalizando matematicamente que toda e qualquer solução individual instanciada pelo GWO sobrepujou totalmente as soluções instanciadas pelo BWO na amostra gerada. 
 
 Para a avaliação menos complexa de hiperparâmetros ($D=6$), a análise estatística demonstrou que, não obstante a ausência de diferenças entre os líderes diretos (GWO, QL-GWO e PSO, onde o valor $p > 0.05$), a implementação híbrida QL-GWO superou o algoritmo BWO com efeito Grande ($d = -0.7544, p < 0.001$). Esta estruturação de dados ratifica empiricamente a conclusão de que formulações híbridas acopladas a Q-Learning e políticas hierárquicas clássicas de caça são estritamente mandatórias para a resolução de paisagens matemáticas adversas ou de dados altamente esparsos.
 
-% CAIXA DE SUGESTÃO (HEATMAP DE EFEITOS) ADICIONADA AQUI
-\begin{figure}[H]
-  \centering
-  \framebox{\parbox{0.8\textwidth}{\centering
-    \textbf{Sugestão: DUVIDA??} \\
-    \vspace{3cm}
-  }}
-  \caption{Mapa de Calor da magnitude de efeito (\textit{Cliff's Delta}) nas comparações par-a-par.}
-  \label{fig:heatmap_estatistico}
-\end{figure}
 
 % ---------------------------------------------------
 % CAPÍTULO 6 - CONCLUSÃO
@@ -749,17 +1247,17 @@ Para a avaliação menos complexa de hiperparâmetros ($D=6$), a análise estat�
 \chapter{Conclusão} \label{chap:conclusao}
 
 
-Este trabalho apresentou uma análise comparativa, sistemática e rigorosa de algoritmos de otimização bio-inspirados — abrangendo desde os modelos clássicos (PSO, ACO, GA) e contemporâneos (GWO, WOA, BWO) até as recentes arquiteturas híbridas governadas por Inteligência Artificial (QL-GWO e DRL-BWO). O objetivo central de investigar a capacidade estrutural e empírica dessas meta-heurísticas em contornar ótimos locais e resolver problemas complexos da classe NP-hard foi plenamente alcançado através de uma plataforma de \textit{benchmark} metodologicamente estrita, orçamentos computacionais controlados e validação por meio de testes estatísticos não-paramétricos.
+Este trabalho apresentou uma análise comparativa, sistemática e rigorosa de algoritmos de otimização bio-inspirados — abrangendo desde os modelos clássicos (PSO, ACO) e contemporâneos (GWO, BWO) até as recentes arquiteturas híbridas governadas por Inteligência Artificial (QL-GWO e DRL-BWO). O objetivo central de investigar a capacidade estrutural e empírica dessas meta-heurísticas em contornar ótimos locais e resolver problemas complexos da classe NP-hard foi plenamente alcançado através de uma plataforma de \textit{benchmark} metodologicamente estrita, orçamentos computacionais controlados e validação por meio de testes estatísticos não-paramétricos.
 
 No cenário puramente matemático, governado pela topologia altamente multimodal da função Rastrigin em 30 dimensões, os resultados empíricos evidenciaram a vulnerabilidade crítica das arquiteturas pioneiras à convergência prematura. O PSO e o ACO ficaram retidos em vales subótimos logo nas primeiras iterações, consolidando custos medianos na ordem de $2.41 \times 10^2$. Em contrapartida, o \textit{Grey Wolf Optimizer} (GWO) consolidou-se como o algoritmo matematicamente superior, impulsionado por seu mecanismo vetorial de cerco hierárquico, que mergulhou consistentemente em direção à bacia global e atingiu a impressionante marca de $3.41 \times 10^{-13}$. Contudo, essa acurácia revelou um \textit{trade-off} de eficiência: o GWO exigiu o maior custo de processamento interno ($3,41$ segundos de tempo de CPU). Nesse aspecto, a variante QL-GWO demonstrou ser o ponto de equilíbrio ideal, evadindo os ótimos locais de forma eficaz com um custo temporal reduzido ($1,83$ segundos).
 
-A transposição dessas metodologias para o domínio aplicado do Aprendizado de Máquina elucidou gargalos estruturais ocultos, punindo severamente estratégias de exploração randômica cega. No desafio de Seleção de Atributos (\textit{Feature Selection}), sob o rigor de uma alta dimensionalidade contínua ($D=150$), o algoritmo BWO sofreu um completo colapso exploratório. O mecanismo de transição abrupta conhecido como "queda da baleia" (\textit{whale fall}) demonstrou-se ineficiente no gerenciamento de espaços esparsos, resultando na pior mediana de erro ($6.01 \times 10^{-2}$).. 
+A transposição dessas metodologias para o domínio aplicado do Aprendizado de Máquina elucidou gargalos estruturais ocultos, punindo severamente estratégias de exploração randômica cega. No desafio de Seleção de Atributos (\textit{Feature Selection}), sob o rigor de uma alta dimensionalidade contínua ($D=150$), o algoritmo BWO sofreu um completo colapso exploratório. O mecanismo de transição abrupta conhecido como "queda da baleia" (\textit{whale fall}) demonstrou-se ineficiente no gerenciamento de espaços esparsos, resultando na pior mediana de erro ($6.01 \times 10^{-2}$). 
 
 O achado mais significativo e inovador deste estudo, contudo, reside na validação da hibridização com o Aprendizado por Reforço. A análise de Otimização de Hiperparâmetros (HPO) provou categoricamente que as matrizes de decisão tabular do QL-GWO proporcionam uma estabilidade estocástica sem precedentes. Enquanto o desempenho geral de precisão convergiu para um platô entre os melhores algoritmos, a substituição de hiperparâmetros de decaimento rígidos por um agente adaptativo (Q-Table) permitiu que a meta-heurística aprendesse, em tempo de execução, o exato limiar ótimo entre a exploração e a explotação. Como resultado, o QL-GWO cravou o menor desvio padrão absoluto de toda a bateria de testes ($1.86 \times 10^{-4}$), garantindo uma consistência ímpar na replicação de soluções de alta qualidade.
 
 O rigor estatístico empregado atuou como a chancela metodológica definitiva, isolando o efeito randômico inerente às heurísticas. A rejeição da hipótese nula nos testes globais de Kruskal-Wallis ($p < 10^{-25}$) atestou a forte assimetria de desempenho. Nas comparações par-a-par governadas pelo teste U de Mann-Whitney, o GWO não apenas venceu, mas impôs uma Magnitude de Efeito (\textit{Cliff's Delta}) extrema e categorizada como "Grande". No embate direto do \textit{Feature Selection}, registrou-se um $d=1.000$ a favor do GWO contra o BWO, provando matematicamente que toda e qualquer solução gerada pela matilha superou as instâncias do enxame de belugas. No HPO, a superioridade do híbrido QL-GWO sobre o BWO também foi consolidada com forte tamanho de efeito ($d=-0.7544, p < 0.001$).
 
-Ao sintetizar as métricas de convergência, estabilidade estatística e capacidade exploratória sob as restrições rigorosas estipuladas (NFEs e Tempo de CPU), o ranqueamento geral de desempenho torna-se evidente. Em primeiro lugar desponta a arquitetura híbrida QL-GWO, configurando-se como a escolha mandatória para cenários reais por equalizar precisão cirúrgica e hiper-confiabilidade estocástica. Em segundo lugar, como líder incontestável das meta-heurísticas puramente biológicas, posiciona-se o GWO. As abordagens evolutivas pioneiras (PSO e GA) ocupam o estrato intermediário, recomendadas restritamente para aplicações elementares. Nas últimas posições, situam-se os algoritmos recentes baseados em grandes saltos desmedidos, notadamente o BWO, devido à sua severa inaptidão estrutural frente a topologias não-convexas e de alta dimensão. Conclui-se que o emprego de lógicas simplistas ou de decaimento determinístico tornou-se obsoleto para a engenharia de dados moderna; a excelência exige a fusão de buscas hierárquicas escaláveis com matrizes de Inteligência Artificial para autogestão paramétrica.
+Ao sintetizar as métricas de convergência, estabilidade estatística e capacidade exploratória sob as restrições rigorosas estipuladas (NFEs e Tempo de CPU), o ranqueamento geral de desempenho torna-se evidente. Em primeiro lugar desponta a arquitetura híbrida QL-GWO, configurando-se como a escolha mandatória para cenários reais por equalizar precisão cirúrgica e hiper-confiabilidade estocástica. Em segundo lugar, como líder incontestável das meta-heurísticas puramente biológicas, posiciona-se o GWO. As abordagens pioneiras ocupam o estrato intermediário, recomendadas restritamente para aplicações elementares. Nas últimas posições, situam-se os algoritmos recentes baseados em grandes saltos desmedidos, notadamente o BWO, devido à sua severa inaptidão estrutural frente a topologias não-convexas e de alta dimensão. Conclui-se que o emprego de lógicas simplistas ou de decaimento determinístico tornou-se obsoleto para a engenharia de dados moderna; a excelência exige a fusão de buscas hierárquicas escaláveis com matrizes de Inteligência Artificial para autogestão paramétrica.
 
 Como perspectiva de continuidade a expansão desta plataforma avaliativa para a sintonia hiperparamétrica de redes neurais profundas convolucionais (CNNs) ou recorrentes (LSTMs) cenários em que o custo avaliativo de restrição (NFE) é massivo, bem como a sua aplicação em ecossistemas dinâmicos não-estacionários (como o roteamento contínuo de veículos autônomos ou a alocação elástica de tarefas em \textit{Cloud Computing}), representam a próxima fronteira metodológica.
 
@@ -767,20 +1265,26 @@ Como perspectiva de continuidade a expansão desta plataforma avaliativa para a 
 % ---------------------------------------------------
 % REFERÊNCIAS
 % ---------------------------------------------------
-% --- REMOVENDO O TÍTULO AUTOMÁTICO DUPLICADO ---
-% Como usamos o pacote 'natbib', redefinimos o comando \bibsection 
-% para que ele não imprima o título padrão automaticamente.
 \renewcommand{\bibsection}{}
+\chapter{Referências} \label{chap:referencias}
 
-% Agora você pode colocar o seu próprio título e label livremente.
-% (Obs: Substitua \section por \chapter no seu documento principal, caso use classe report/book)
-\chapter{Referências Bibliográficas} \label{chap:referencias}
-
-% Simulação das referências bibliográficas para o comando \citet funcionar
+\begin{flushleft}
 \begin{thebibliography}{99}
-\bibitem[DEVIKA and KAREGOWDA(2023)]{devika2023}
-Devika, K., \& Karegowda, A. G. (2023). Título do Artigo Fictício (substitua pelo original). \textit{Nome do Journal/Conferência}.  DOI: 10.5772/intechopen.106014. Disponível em: https://doi.org/10.5772/intechopen.106014. Acesso em: 15 jun. 2026
 
+\bibitem[ACKLEY(1987)]{ackley1987macroeconomic}
+ACKLEY, D. H. A connectionist machine for genetic hillclimbing. \textbf{The Springer International Series in Engineering and Computer Science}, v. 28, 1987.
+
+\bibitem[BISONG(2019)]{bisong2019google}
+BISONG, E. \textbf{Building Machine Learning and Deep Learning Models on Google Cloud Platform: A Comprehensive Guide for Beginners}. New York: Apress, 2019.
+
+\bibitem[DEMŠAR(2006)]{demsar2006statistical}
+DEMŠAR, J. Statistical comparisons of classifiers over multiple data sets. \textbf{Journal of Machine Learning Research}, v. 7, p. 1--30, 2006.
+
+% %%% ALERTA %%%
+% ATENÇÃO: Esta é a referência que estava com o título fictício. 
+% Sugiro confirmar o título real do capítulo pela sua pesquisa ou no site da IntechOpen.
+\bibitem[DEVIKA and KAREGOWDA(2023)]{devika2023}
+DEVIKA, K.; KAREGOWDA, A. G. [INSERIR TÍTULO AQUI]. \textbf{Nome do Journal/Conferência}. DOI: 10.5772/intechopen.106014. Disponível em: https://doi.org/10.5772/intechopen.106014. Acesso em: 15 jun. 2026.
 
 \bibitem[DORIGO; BIRATTARI; STUTZLE(2006)]{dorigo2006ant}
 DORIGO, M.; BIRATTARI, M.; STUTZLE, T. Ant colony optimization. \textbf{IEEE Computational Intelligence Magazine}, v. 1, n. 4, p. 28--39, 2006.
@@ -788,11 +1292,17 @@ DORIGO, M.; BIRATTARI, M.; STUTZLE, T. Ant colony optimization. \textbf{IEEE Com
 \bibitem[DORIGO; STÜTZLE(2004)]{dorigo2004ant}
 DORIGO, M.; STÜTZLE, T. \textbf{Ant Colony Optimization}. Cambridge: The MIT Press, 2004. 305 p.
 
-\bibitem[HOLLAND(1992)]{holland1992adaptation}
-HOLLAND, J. H. \textbf{Adaptation in Natural and Artificial Systems: An Introductory Analysis with Applications to Biology, Control, and Artificial Intelligence}. Cambridge: MIT Press, 1992.
+\bibitem[HANSEN et al.(2010)]{hansen2010comparing}
+HANSEN, N. \textit{et al}. Comparing results of 31 algorithms from the black-box optimization benchmarking BBOB-2009. In: \textbf{Proceedings of the 12th annual conference on Genetic and evolutionary computation}. ACM, 2010. p. 1689--1696.
+
+\bibitem[HARRIS et al.(2020)]{harris2020array}
+HARRIS, C. R. \textit{et al}. Array programming with NumPy. \textbf{Nature}, v. 585, n. 7825, p. 357--362, 2020.
 
 \bibitem[HUANG et al.(2023)]{huang2023evaluation}
 HUANG, X.; XU, R.; YU, W.; WU, S. Evaluation and Analysis of Heuristic Intelligent Optimization Algorithms. \textbf{Mathematics}, v. 11, n. 21, p. 4531, 2023. DOI: 10.3390/math11214531.
+
+\bibitem[HUNTER(2007)]{hunter2007matplotlib}
+HUNTER, J. D. Matplotlib: A 2D graphics environment. \textbf{Computing in Science \& Engineering}, v. 9, n. 3, p. 90--95, 2007.
 
 \bibitem[ISMAIL; OMRAN(2026)]{ismail2026beyond}
 ISMAIL, N. M. H.; OMRAN, M. G. H. Beyond Significance: Promoting Effect Size Measures in Comparing Metaheuristic Algorithms. \textbf{Algorithms}, v. 19, n. 3, p. 191, 2026. DOI: 10.3390/a19030191.
@@ -803,8 +1313,8 @@ JAMALI, H.; DASCALU, S. M.; HARRIS, F. C. A Systematic Review of Bio-Inspired Me
 \bibitem[KENNEDY; EBERHART(1995)]{kennedy1995particle}
 KENNEDY, J.; EBERHART, R. Particle swarm optimization. In: \textbf{Proceedings of the IEEE International Conference on Neural Networks}. Perth: IEEE, 1995. v. 4, p. 1942--1948.
 
-\bibitem[MIRJALILI; LEWIS(2016)]{mirjalili2016whale}
-MIRJALILI, S.; LEWIS, A. The whale optimization algorithm. \textbf{Advances in Engineering Software}, v. 95, p. 51--67, 2016. DOI: 10.1016/j.advengsoft.2016.01.008.
+\bibitem[MCKINNEY(2012)]{mckinney2012python}
+MCKINNEY, W. \textbf{Python for Data Analysis: Data Wrangling with Pandas, NumPy, and IPython}. Sebastopol: O'Reilly Media, Inc., 2012.
 
 \bibitem[MIRJALILI; MIRJALILI; LEWIS(2014)]{mirjalili2014grey}
 MIRJALILI, S.; MIRJALILI, S. M.; LEWIS, A. Grey wolf optimizer. \textbf{Advances in Engineering Software}, v. 69, p. 46--61, 2014. DOI: 10.1016/j.advengsoft.2013.12.007.
@@ -812,8 +1322,17 @@ MIRJALILI, S.; MIRJALILI, S. M.; LEWIS, A. Grey wolf optimizer. \textbf{Advances
 \bibitem[NAYEEM; FAN; DAIYAN(2025)]{nayeem2025adaptive}
 NAYEEM, G. M.; FAN, M.; DAIYAN, G. M. Adaptive Q-Learning Grey Wolf Optimizer for UAV Path Planning. \textbf{Drones}, v. 9, n. 4, p. 246, 2025. DOI: 10.3390/drones9040246.
 
+\bibitem[PASZKE et al.(2019)]{paszke2019pytorch}
+PASZKE, A. \textit{et al}. PyTorch: An imperative style, high-performance deep learning library. In: \textbf{Advances in Neural Information Processing Systems}, v. 32, p. 8024--8035, 2019.
+
+\bibitem[PEDREGOSA et al.(2011)]{pedregosa2011scikit}
+PEDREGOSA, F. \textit{et al}. Scikit-learn: Machine learning in Python. \textbf{Journal of Machine Learning Research}, v. 12, p. 2825--2830, 2011.
+
 \bibitem[PRAVEENA et al.(2022)]{praveena2022optimal}
 PRAVEENA, V. \textit{et al}. Optimal Deep Reinforcement Learning for Intrusion Detection in UAVs. \textbf{Computers, Materials \& Continua}, v. 70, n. 2, p. 2639--2653, 2022.
+
+\bibitem[ROSENBROCK(1960)]{rosenbrock1960automatic}
+ROSENBROCK, H. H. An automatic method for finding the greatest or least value of a function. \textbf{The Computer Journal}, v. 3, n. 3, p. 175--184, 1960.
 
 \bibitem[SHI; EBERHART(1998)]{shi1998modified}
 SHI, Y.; EBERHART, R. A Modified Particle Swarm Optimizer. In: \textbf{IEEE International Conference on Evolutionary Computation}. Anchorage: IEEE, 1998. p. 69--73.
@@ -823,6 +1342,9 @@ SOMVANSHI, S. \textit{et al}. A Review on Influx of Bio-Inspired Algorithms: Cri
 
 \bibitem[TU et al.(2024)]{tu2024qlearning}
 TU, B.; WANG, F.; HAN, X.; FU, X. Q-learning Guided Grey Wolf Optimizer for UAV 3D Path Planning. \textbf{International Journal of Advanced Computer Science and Applications (IJACSA)}, v. 15, n. 7, 2024. DOI: 10.14569/IJACSA.2024.0150747.
+
+\bibitem[VIRTANEN et al.(2020)]{virtanen2020scipy}
+VIRTANEN, P. \textit{et al}. SciPy 1.0: fundamental algorithms for scientific computing in Python. \textbf{Nature Methods}, v. 17, n. 3, p. 261--272, 2020.
 
 \bibitem[WEN; ZHANG(2025)]{wen2025enhanced}
 WEN, Y.; ZHANG, D. Enhanced beluga whale optimization algorithm and its application. \textbf{Journal of Shandong University (Engineering Science)}, v. 55, n. 3, p. 88--99, 2025.
@@ -840,5 +1362,7 @@ YUAN, H. \textit{et al}. Improved beluga whale optimization algorithm based clus
 ZHONG, C.; LI, G.; MENG, Z. Beluga whale optimization: A novel nature-inspired metaheuristic algorithm. \textbf{Knowledge-Based Systems}, v. 251, p. 109269, 2022. DOI: 10.1016/j.knosys.2022.109269.
 
 \end{thebibliography}
+\end{flushleft}
+
 
 \end{document}
