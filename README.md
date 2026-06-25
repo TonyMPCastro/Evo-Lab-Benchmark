@@ -1,46 +1,60 @@
-# Evo-Lab-Benchmark
+# Análise de Algoritmos Bioinspirados em Problemas de Otimização
 
-**Plataforma de Benchmark para Algoritmos de Otimização Bio-inspirados**
+Este repositório consolida a pesquisa, os códigos e a documentação do Trabalho de Conclusão de Curso (TCC) de Antonio Marcos Patricio Castro, apresentado ao Bacharelado Interdisciplinar em Ciência e Tecnologia da Universidade Federal do Maranhão (UFMA).
 
-Este projeto é desenvolvido para um Trabalho de Conclusão de Curso (TCC) e consiste em uma suíte de benchmark com nível acadêmico para avaliação e comparação rigorosa de algoritmos de otimização bio-inspirados (meta-heurísticas).
+## Descrição do Projeto
 
-## 🎯 Objetivo
+O avanço na Ciência de Dados e no Aprendizado de Máquina demanda algoritmos de otimização cada vez mais complexos para resolver problemas de nível $\mathcal{NP}$-difícil. Abordagens clássicas (determinísticas) falham em funções não-convexas devido ao aprisionamento em ótimos locais. Este projeto desenvolveu e avaliou uma **plataforma padronizada de benchmark** para avaliar algoritmos estocásticos (meta-heurísticas bioinspiradas) e investigar os impactos da hibridização com Inteligência Artificial.
 
-Fornecer um ambiente de testes robusto e profissional para validar algoritmos clássicos e modernos, utilizando padrões reconhecidos mundialmente pela academia (como o IEEE CEC) e aplicando-os em cenários de otimização do mundo real, como Ciência de Dados e Engenharia.
+Os seguintes algoritmos foram analisados exaustivamente:
+- **PSO** (_Particle Swarm Optimization_): Enxame de partículas.
+- **ACO** (_Ant Colony Optimization_): Colônia de formigas.
+- **GWO** (_Grey Wolf Optimizer_): Lobos cinzentos (hierarquia e cerco matemático).
+- **BWO** (_Beluga Whale Optimization_): Baleias beluga.
+- **QL-GWO** (_Q-Learning GWO_): Variante híbrida orientada a Aprendizado por Reforço.
+- **DRL-BWO** (_Deep Reinforcement Learning BWO_): BWO hibridizado com Redes Neurais Profundas.
 
-## 🧬 Algoritmos Analisados
+## Estrutura do Repositório
 
-*   **Clássicos (Padrão da Indústria):**
-    *   **PSO** (Particle Swarm Optimization)
-    *   **ACO** (Ant Colony Optimization)
-    *   **GWO** (Grey Wolf Optimizer)
-    *   **ALO** (Ant Lion Optimizer)
-    *   **WOA** (Whale Optimization Algorithm)
-    *   **BWO** (Beluga Whale Optimization)
-*   **Híbridos com Inteligência Artificial (2024–2026):**
-    *   **DRL-MORIME** (Deep Reinforcement Learning Meta-heuristic)
-    *   **DRL-BWO** (Deep Reinforcement Learning + Beluga Whale Optimization)
-    *   **QL-GWO** (Q-Learning Grey Wolf Optimizer)
+O projeto foi totalmente reestruturado para manter a clareza e separação das responsabilidades:
 
-## 🧪 Metodologia de Testes e Aplicações
+```text
+Evo-Lab-Benchmark/
+│
+├── docs/                      # Documentações, TCC (LaTeX) e Rascunhos
+├── notebooks/                 # Cadernos Jupyter (Google Colab) com os experimentos
+├── scripts/                   # Scripts auxiliares e ferramentas do projeto
+├── assets/                    # Imagens, logotipos e recursos estáticos
+├── presentation/              # Arquivos finais de apresentação de defesa (.pptx, PDFs)
+│
+├── LICENSE                    # Licença do Repositório
+└── README.md                  # Este documento
+```
 
-1.  **Baterias de Funções Benchmark Matemáticas:** Testes de explotação (funções unimodais como Esfera) e exploração (funções multimodais como Ackley e Rastrigin) para medir velocidade de convergência e inteligência de fuga de ótimos locais.
-2.  **Ciência de Dados e Machine Learning:**
-    *   *Feature Selection* (Seleção de Características): Minimização de variáveis mantendo alta acurácia do classificador.
-    *   *Sintonia de Hiperparâmetros*: Otimização de parâmetros de Redes Neurais e outros modelos.
-3.  **Engenharia e Controle:** Sintonia de Controladores PID visando minimizar o erro (como RMSE) e melhorar estabilidade e *rise time*.
+## Metodologia e Tecnologias
 
-## 📊 Visualizações e Métricas
+Todo o ambiente computacional foi arquitetado no **Google Colab** utilizando:
+- **Python**: Linguagem central da pesquisa e modelagem orientada a objetos das classes de avaliação.
+- **PyTorch**: Construção dos modelos de _Deep Reinforcement Learning_.
+- **Scikit-Learn**: Empregado na validação cruzada do classificador KNN.
+- **Matplotlib**: Engine de plotagem estrita para geração dos gráficos de viés acadêmico.
 
-A plataforma gera visualizações modernas e prontas para publicação acadêmica:
-*   **Gráficos de Convergência:** Com bandas de erro e eixo Y em escala logarítmica.
-*   **Trajetórias em Contorno 2D:** Visualização do mapa de busca dos agentes.
-*   **Gráficos de Resposta ao Degrau:** Para simulação em engenharia.
-*   **Análise Estatística:** Validação não-paramétrica (como teste de Wilcoxon) pós 30+ execuções independentes, garantindo rigor científico.
+### Validação Empírica
+O projeto aplicou as meta-heurísticas nos seguintes cenários, respeitando limites iguais de execuções (NFEs):
+1. **Funções Benchmark Multimodais:** Rastrigin, Ackley, Sphere, Rosenbrock, Schwefel e Griewank ($D=30$ e $D=50$).
+2. **Feature Selection (FS):** Seleção de atributos em altíssima dimensionalidade ($D=150$) na base _GunPoint_.
+3. **Hyperparameter Optimization (HPO):** Sintonia fina do modelo K-Nearest Neighbors.
 
-## 🚀 Como Executar
+O viés estocástico (aleatório) foi completamente isolado através de 30 execuções independentes e verificado estatisticamente usando os **Testes de Friedman** (ranking global), **U de Mann-Whitney** (vitórias par-a-par) e métrica de **Cliff's Delta** (magnitude do efeito).
 
-O projeto foi construído em Python. A execução principal e visualizações se encontram no Jupyter Notebook incluído no repositório.
+## Principais Conclusões
 
-1. Clone o repositório.
-2. Abra e execute as células do arquivo `Plataforma_de_Benchmark_para_Algoritmos_de_Otimização_Bio_inspirados.ipynb` para visualizar as baterias de testes.
+- A inserção de Matrizes de Aprendizado por Reforço (como no **QL-GWO**) é **vital** e altamente recomendada na engenharia de dados moderna. O agente de IA substituiu os parâmetros rígidos determinísticos, ajustando perfeitamente o dilema de *Explotação vs. Exploração*, gerando o modelo mais consistente estatisticamente.
+- Entre as heurísticas puramente biológicas, o **GWO** assumiu a liderança absoluta, provando superioridade geométrica sobre os pares, em especial na função Rastrigin (onde cravou um custo de $10^{-13}$).
+- Mecanismos modernos que contam com saltos meramente probabilísticos, como a "Queda da Baleia" do **BWO**, falharam e colapsaram ao enfrentar espaços fortemente esparsos e de alta dimensão.
+
+---
+
+**Autor:** Antonio Marcos Patricio Castro  
+**Orientador:** Prof. Dr. Pedro Baptista Fernandes  
+**Instituição:** Universidade Federal do Maranhão (UFMA) - 2026
