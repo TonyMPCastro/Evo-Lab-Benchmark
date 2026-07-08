@@ -12,7 +12,7 @@
 \usepackage{enumitem}
 \setlist[itemize]{label=-}
 % --- END UNIVERSAL PREAMBLE BLOCK ---
-
+\usepackage{qrcode}
 % --- PACOTES ADICIONAIS PARA ABNT E MATEMÁTICA ---
 \usepackage{amsmath}     % Para equações matemáticas
 \usepackage{booktabs}    % Para formatação de tabelas (linhas horizontais)
@@ -28,6 +28,8 @@
 \usepackage{float}
 \usepackage{natbib}
 \usepackage{pgfplots}    % Pacote para gráficos 2D e 3D
+
+
 \pgfplotsset{compat=1.18} % Configuração de compatibilidade exigida pelo pgfplots
 
 % Definição de cores similares à imagem de referência
@@ -204,7 +206,7 @@ The continuous advancement in data science and engineering imposes highly comple
 \clearpage
 
 
-% ---------------------------------------------------
+% -------------------------------------------------
 % SUMÁRIO E LISTAS
 % ---------------------------------------------------
 \tableofcontents
@@ -790,6 +792,7 @@ Em que $Acc_{CV}$ é a acurácia média preditiva obtida através da validação
 \label{fig:hpo}
 \end{figure}
 
+
 \clearpage
 
 \section{Algoritmos Meta-Heurísticos Bio-Inspirados}
@@ -1364,5 +1367,17 @@ ZHONG, C.; LI, G.; MENG, Z. Beluga whale optimization: A novel nature-inspired m
 \end{thebibliography}
 \end{flushleft}
 
+\appendix
+\chapter*{Repositório do Código-fonte}
+
+O código-fonte completo, incluindo a implementação dos algoritmos meta-heurísticos, testes de benchmark e scripts de coleta de dados desenvolvidos para esta pesquisa, encontra-se disponível para consulta pública através do repositório no GitHub.
+
+\begin{center}
+    \qrcode[height=4cm]{https://github.com/TonyMPCastro/Evo-Lab-Benchmark} \\
+    \vspace{0.5cm}
+    \url{https://github.com/TonyMPCastro/Evo-Lab-Benchmark}
+\end{center}
+
+\text{Acesse o código através do QR Code acima ou pelo link direto.}
 
 \end{document}
